@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="analytic_tag_dimension" model="ir.ui.view">
+        <field name="name">account.analytic.tag.color</field>
+        <field name="model">account.analytic.dimension</field>
+        <field name='inherit_id' ref='analytic_tag_dimension.view_AccountAnalyticDimension_form'/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='code']" position="after">
+                <field name="color_index"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="analytic_tag_dimension_colour" model="ir.ui.view">
+        <field name="name">account.analytic.tag.color.tag</field>
+        <field name="model">account.analytic.tag</field>
+        <field name='inherit_id' ref='analytic.account_analytic_tag_form_view'/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="color" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+<!-- Analytic tag colour in sale order line -->
+    <record id="analytic_tag_sale_order" model="ir.ui.view">
+        <field name="name">sale.analytic.tag.color</field>
+        <field name="model">sale.order</field>
+        <field name='inherit_id' ref='sale.view_order_form'/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='order_line']/tree/field[@name='analytic_tag_ids']" position="attributes">
+               <attribute name="options">{'color_field': 'color'}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+<!-- Analytic tag colour in Account Move line -->
+    <record id="analytic_tag_account_move" model="ir.ui.view">
+        <field name="name">account.analytic.tag.color</field>
+        <field name="model">account.move</field>
+        <field name='inherit_id' ref='account.view_move_form'/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='line_ids']/tree/field[@name='analytic_tag_ids']" position="attributes">
+                <attribute name="options">{'color_field': 'color'}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+<!--Analytic tag colour in journal form view-->
+    <record id="analytic_tag_journal_entries" model="ir.ui.view">
+        <field name="name">account.journal.analytic.tag.color</field>
+        <field name="model">account.move.line</field>
+        <field name='inherit_id' ref='account.view_move_line_form'/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='analytic_tag_ids']" position="attributes">
+                <attribute name="options">{'color_field': 'color'}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+<!--Analytic tag colour in journal tree view-->
+     <record id="analytic_tag_journal_entries" model="ir.ui.view">
+        <field name="name">account.journal.tree.analytic.tag</field>
+        <field name="model">account.move.line</field>
+        <field name='inherit_id' ref='account.view_move_line_tree'/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='analytic_tag_ids']" position="attributes">
+                <attribute name="options">{'color_field': 'color'}</attribute>
+           </xpath>
+        </field>
+    </record>
+
+<!--Analytic tag colour in Analytic Entry view-->
+    <record id="analytic_tag_entries" model="ir.ui.view">
+        <field name="name">account.analytic.tag.form</field>
+        <field name="model">account.analytic.line</field>
+        <field name='inherit_id' ref='analytic.view_account_analytic_line_form'/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='tag_ids']" position="attributes">
+                <attribute name="options">{'color_field': 'color'}</attribute>
+           </xpath>
+        </field>
+    </record>
+
+</odoo>

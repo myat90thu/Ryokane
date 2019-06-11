@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    Tag Colour in Analytic items-->
+
+    <record id="analytic_tag_view" model="ir.ui.view">
+        <field name="name">account.analytic.line.list</field>
+        <field name="model">account.analytic.line</field>
+        <field name='inherit_id' ref='analytic.view_account_analytic_line_tree'/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='account_id']" position="after">
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </xpath>
+        </field>
+    </record>
+
+<!--    Analytic account and tag in purchase-->
+
+    <record id="analytic_account_puchase_view" model="ir.ui.view">
+        <field name="name">analytic.account.purchase</field>
+        <field name="model">account.invoice</field>
+        <field name='inherit_id' ref='account.invoice_supplier_form'/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="account_analytic_id"/>
+                <field name="analytic_tag_id" widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
