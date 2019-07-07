@@ -3,8 +3,8 @@
     "summary": "Group Analytic Entries by Dimensions",
     "category": "Accounting",
     "version": "12.0.1.0.0",
-    "author": "Cybrosys Technologies Pvt. Ltd.",
-    "website": "https://www.cybrosys.com",
+    "author": "Wafi Chaar",
+    "website": "https://www.hloul-bas.com",
     "depends": ['base', 'analytic_tag_dimension',
                 'sale', 'purchase', 'stock', 'account'
     ],

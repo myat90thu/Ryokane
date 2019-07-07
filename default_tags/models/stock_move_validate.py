@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields,api,_
+from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
 
@@ -9,12 +9,14 @@ from odoo.exceptions import ValidationError
 class StockJournalEntry(models.Model):
     _inherit = 'stock.move'
 
+    analytic_tag_ids = fields.Many2many('account.analytic.tag',
+                                        string='Analytic Tags')
+
     def _create_account_move_line(self, credit_account_id, debit_account_id, journal_id):
         self.ensure_one()
-        AccountMove = self.env['account.move']
+        account_move = self.env['account.move']
         quantity = self.env.context.get('forced_quantity', self.product_qty)
         quantity = quantity if self._is_in() else -1 * quantity
-
         # Make an informative `ref` on the created account move to differentiate between classic
         # movements, vacuum and edition of past moves.
         ref = self.picking_id.name
@@ -23,16 +25,12 @@ class StockJournalEntry(models.Model):
                 ref = 'Revaluation of %s (negative inventory)' % ref
             elif self.env.context.get('forced_quantity') is not None:
                 ref = 'Correction of %s (modification of past move)' % ref
-
-        move_lines = self.with_context(
-            forced_ref=ref)._prepare_account_move_line(quantity,
-                                                       abs(self.value),
-                                                       credit_account_id,
-                                                       debit_account_id)
+        move_lines = self.with_context(forced_ref=ref)._prepare_account_move_line(quantity, abs(self.value),
+                                                                                  credit_account_id, debit_account_id)
         if move_lines:
             date = self._context.get('force_period_date',
                                      fields.Date.context_today(self))
-            new_account_move = AccountMove.sudo().create({
+            new_account_move = account_move.sudo().create({
                 'journal_id': journal_id,
                 'line_ids': move_lines,
                 'date': date,
@@ -41,7 +39,13 @@ class StockJournalEntry(models.Model):
             })
             for move_lines in new_account_move.line_ids:
                 dimension_tags_allowed = []
-                tags = self.inventory_id.analytic_tag_ids.ids
+
+                if self.inventory_id:
+                    tags = self.inventory_id.analytic_tag_ids.ids
+                elif self.picking_id:
+                    tags = self.analytic_tag_ids.ids
+                else:
+                    tags = self.analytic_tag_ids.ids
                 for account in move_lines.account_id.analytic_dimension_ids:
                     dimension_tags = account.analytic_dimension_id.analytic_tag_ids.ids
                     dimension_tags_allowed += dimension_tags
@@ -54,7 +58,7 @@ class StockJournalEntry(models.Model):
                             tags.append(account.default_value.id)
                         else:
                             raise ValidationError(
-                                _("Please choose a valid Tag/Dimension!!!"))
+                                _("Please choose a valid Tag/Dimension! "))
                 allowed_tag_val = []
                 for tag in tags:
                     if tag in dimension_tags_allowed:
@@ -63,7 +67,7 @@ class StockJournalEntry(models.Model):
                     'analytic_tag_ids': [(6, 0, allowed_tag_val)]
                 })
             new_account_move.post()
-            
+
 
 class StockAnalyticTag(models.Model):
     _inherit = 'stock.inventory'
@@ -101,6 +105,5 @@ class TaxInvoiceLine(models.Model):
     @api.onchange('analytic_account_id')
     def _onchange_invoice_line_account(self):
         self.update({
-            'account_analytic_id':self.analytic_account_id.id
+            'account_analytic_id': self.analytic_account_id.id
         })
-

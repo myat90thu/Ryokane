@@ -44,10 +44,11 @@ class InvoiceLines(models.Model):
     # @api.onchange('tax_line_ids')
     # def onchange_tax_tags(self):
     #     print(self.analytic_tag_ids)
-        # for tax_line in self.tax_line_ids:
-        #     tax_line.update({
-        #         'analytic_tag_ids': self.analytic_tag_
-        #     })
+    # for tax_line in self.tax_line_ids:
+    #     tax_line.update({
+    #         'analytic_tag_ids': self.analytic_tag_
+    #     })
+
 
 # Add analytic account in invoice lines from invoice form view
 

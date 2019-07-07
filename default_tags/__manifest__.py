@@ -11,6 +11,7 @@
     'depends': ['base', 'purchase', 'sale', 'contacts'],
     'data': [
         'views/order_line.xml',
+        'views/manufacturing_view.xml',
         'views/payment_view.xml'
     ],
     'installable': True,
