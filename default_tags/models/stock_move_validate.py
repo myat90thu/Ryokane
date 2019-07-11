@@ -25,6 +25,7 @@ class StockJournalEntry(models.Model):
                 ref = 'Revaluation of %s (negative inventory)' % ref
             elif self.env.context.get('forced_quantity') is not None:
                 ref = 'Correction of %s (modification of past move)' % ref
+
         move_lines = self.with_context(forced_ref=ref)._prepare_account_move_line(quantity, abs(self.value),
                                                                                   credit_account_id, debit_account_id)
         if move_lines:
@@ -44,8 +45,12 @@ class StockJournalEntry(models.Model):
                     tags = self.inventory_id.analytic_tag_ids.ids
                 elif self.picking_id:
                     tags = self.analytic_tag_ids.ids
+                elif self.scrapped:
+                    mrp = self.env['mrp.production'].search([('move_raw_ids', '=', self.id)])
+                    tags = mrp.mrp_analytic_tags.ids
                 else:
                     tags = self.analytic_tag_ids.ids
+
                 for account in move_lines.account_id.analytic_dimension_ids:
                     dimension_tags = account.analytic_dimension_id.analytic_tag_ids.ids
                     dimension_tags_allowed += dimension_tags
@@ -74,6 +79,13 @@ class StockAnalyticTag(models.Model):
 
     analytic_tag_ids = fields.Many2many('account.analytic.tag',
                                         string='Analytic Tags')
+
+#
+# class StockScrap(models.Model):
+#     _inherit = 'stock.scrap'
+#
+#     analytic_tag_ids = fields.Many2many('account.analytic.tag',
+#                                         string='Analytic Tags')
 
 
 class PurchaseTagLine(models.Model):
