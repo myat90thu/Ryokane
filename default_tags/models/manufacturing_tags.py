@@ -2,6 +2,8 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
+
 from datetime import datetime
 
 
@@ -41,5 +43,10 @@ class MrpProductProduce(models.TransientModel):
             move.update({
                 'analytic_tag_ids': [(6, 0, self.production_id.mrp_analytic_tags.ids)]
             })
-
+        stock_move_lines = self.env['stock.move.line'].search([('production_id', '=', self.production_id.id)])
+        for stock_move_line in stock_move_lines:
+            if stock_move_line.product_qty != stock_move_line.qty_done:
+                stock_move_line.update({
+                    'product_uom_qty': stock_move_line.qty_done
+                })
         return res

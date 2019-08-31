@@ -37,16 +37,16 @@
 
 <!-- Add analytic account in Delivery -->
 
-        <record id="analytic_tags_delivery" model="ir.ui.view">
-            <field name="name">account.analytic.delivery</field>
-            <field name="model">stock.picking</field>
-            <field name='inherit_id' ref='stock.view_picking_form'/>
-            <field name="arch" type="xml">
-                 <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="after">
-                     <field name="analytic_tag_id" widget="many2many_tags" options="{'color_field': 'color'}"/>
-                 </xpath>
-            </field>
-        </record>
+        <!--<record id="analytic_tags_delivery" model="ir.ui.view">-->
+            <!--<field name="name">account.analytic.delivery</field>-->
+            <!--<field name="model">stock.picking</field>-->
+            <!--<field name='inherit_id' ref='stock.view_picking_form'/>-->
+            <!--<field name="arch" type="xml">-->
+                 <!--<xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="after">-->
+                     <!--<field name="analytic_tag_id" widget="many2many_tags" options="{'color_field': 'color'}"/>-->
+                 <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
 
          <record id="analytic_tags_return" model="ir.ui.view">
             <field name="name">account.analytic.return</field>

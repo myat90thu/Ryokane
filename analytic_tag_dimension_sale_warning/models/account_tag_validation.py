@@ -37,6 +37,7 @@ class SaleInvoice(models.Model):
                         tag_ids.append(dimension.default_value.id)
                     else:
                         raise ValidationError(_("Please choose a valid Tag/Dimension!!!"))
+
             allowed_tag_val = []
             for tag in tag_ids:
                 if tag in dimension_tags_allowed:

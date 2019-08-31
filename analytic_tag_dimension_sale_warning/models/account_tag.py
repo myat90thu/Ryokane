@@ -32,7 +32,7 @@ class StockPickingValidate(models.Model):
     def button_validate(self):
         for picking in self.move_ids_without_package:
             dimension_ids = []
-            for tags in picking.analytic_tag_id:
+            for tags in picking.analytic_tag_ids:
                 dimension_ids.append(tags.analytic_dimension_id.id)
             if len(set(dimension_ids)) != len(dimension_ids):
                 raise ValidationError(_

@@ -69,18 +69,18 @@ class AnalyticTagInvoice(models.Model):
 class StockPickingDelivery(models.Model):
     _inherit = 'stock.move'
 
-    analytic_tag_id = fields.Many2many('account.analytic.tag', String='Analytic Tag')
+    # analytic_tag_id = fields.Many2many('account.analytic.tag', String='Analytic Tag')
 
     @api.model
     def create(self, vals):
         res = super(StockPickingDelivery, self).create(vals)
         if res.sale_line_id:
             res.update({
-                'analytic_tag_id': res.sale_line_id.analytic_tag_ids.ids
+                'analytic_tag_ids': res.sale_line_id.analytic_tag_ids.ids
                         })
         if res.purchase_line_id:
             res.update({
-                'analytic_tag_id': res.purchase_line_id.analytic_tag_ids.ids
+                'analytic_tag_ids': res.purchase_line_id.analytic_tag_ids.ids
             })
         return res
 

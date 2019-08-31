@@ -4,8 +4,6 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
 
-# Add Analytic Tags in Journal Entry
-
 class StockJournalEntry(models.Model):
     _inherit = 'stock.move'
 
@@ -79,13 +77,6 @@ class StockAnalyticTag(models.Model):
 
     analytic_tag_ids = fields.Many2many('account.analytic.tag',
                                         string='Analytic Tags')
-
-#
-# class StockScrap(models.Model):
-#     _inherit = 'stock.scrap'
-#
-#     analytic_tag_ids = fields.Many2many('account.analytic.tag',
-#                                         string='Analytic Tags')
 
 
 class PurchaseTagLine(models.Model):
