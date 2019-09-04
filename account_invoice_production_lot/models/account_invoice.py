@@ -5,10 +5,16 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, fields, models
+from datetime import datetime
+import dateutil.parser
+class invoicelot(models.Model):
+    _inherit= "stock.production.lot"
 
+    life_date = fields.Date(string='End of Life Date',
+    help='This is the date on which the goods with this Serial Number may become dangerous and must not be consumed.')
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
-
+   
     prod_lot_ids = fields.Many2many(
         comodel_name='stock.production.lot',
         compute='_compute_prod_lots',
@@ -19,6 +25,7 @@ class AccountInvoiceLine(models.Model):
         string='Formatted Note',
         compute='_compute_line_lots',
     )
+
 
     @api.multi
     def _compute_prod_lots(self):
@@ -34,13 +41,14 @@ class AccountInvoiceLine(models.Model):
             lot_strings = []
             for sml in line.mapped('move_line_ids.move_line_ids'):
                 if sml.lot_id:
+
                     if sml.product_id.tracking == 'serial':
                         lot_strings.append('<li>%s %s</li>' % (
-                            _('S/N'), sml.lot_id.name,
+                            _('S/N'), sml.lot_id.name, 
                         ))
                     else:
-                        lot_strings.append('<li>%s %s (%s)</li>' % (
-                            _('Lot'), sml.lot_id.name, sml.qty_done,
+                        lot_strings.append('<li style="word-spacing:5px">%s %s Q:(%s) E:%s</li>' % (
+                            _('Lot'), sml.lot_id.name, sml.qty_done,sml.lot_id.life_date
                         ))
             if lot_strings:
                 note += ' '.join(lot_strings)
