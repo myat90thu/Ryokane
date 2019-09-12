@@ -115,7 +115,7 @@ class ReturnStockPicking(models.TransientModel):
                 quantity = float_round(quantity, precision_rounding=move.product_uom.rounding)
                 product_return_moves.append((0, 0, {'product_id': move.product_id.id, 'quantity': quantity,
                                                     'move_id': move.id, 'uom_id': move.product_id.uom_id.id,
-                                                    'analytic_tag_id': move.analytic_tag_id.ids
+                                                    'analytic_tag_id': move.analytic_tag_ids.ids
                                                     }))
 
             if not product_return_moves:
