@@ -17,16 +17,16 @@
 
 <!--        Add analytic account in invoice lines from invoice form view-->
 
-        <record id="view_invoice_line" model="ir.ui.view">
-            <field name="name">invoice.line.view</field>
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='team_id']" position="after">
-                    <field name="analytic_account_id"/>
-                </xpath>
-            </field>
-        </record>
+        <!--<record id="view_invoice_line" model="ir.ui.view">-->
+            <!--<field name="name">invoice.line.view</field>-->
+            <!--<field name="model">account.invoice</field>-->
+            <!--<field name="inherit_id" ref="account.invoice_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//field[@name='team_id']" position="after">-->
+                    <!--<field name="analytic_account_id"/>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
 
 <!--        Add analytic tags in purchase order lines from purchase order form view-->
 

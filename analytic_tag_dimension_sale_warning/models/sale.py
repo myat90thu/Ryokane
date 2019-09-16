@@ -140,7 +140,7 @@ class ReturnStockPicking(models.TransientModel):
     class InvoiceAccount(models.Model):
         _inherit = 'account.invoice'
 
-        analytic_tag_id = fields.Many2many('account.analytic.tag', String='Analytic Tag')
+        analytic_tag_id = fields.Many2many('account.analytic.tag', String='Partner Analytic Tag')
 
 
 

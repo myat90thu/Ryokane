@@ -14,7 +14,7 @@
         'views/manufacturing_view.xml',
         'views/payment_view.xml',
         'views/stock_landed_cost_view.xml',
-        'views/account_invoice_view.xml'
+        # 'views/account_invoice_view.xml'
     ],
     'installable': True,
 }

@@ -15,6 +15,7 @@ class StockLandedCost(models.Model):
         super(StockLandedCost, self).button_validate()
         dimension_tags_allowed = []
         for line in self.account_move_id.line_ids:
+            dimension_tags_allowed = []
             tag_ids = self.analytic_tag_ids.ids
             for dimension in line.account_id.analytic_dimension_ids:
                 dimension_tags = dimension.analytic_dimension_id.analytic_tag_ids.ids

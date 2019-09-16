@@ -43,7 +43,7 @@ class OrderLine(models.Model):
 class InvoiceLines(models.Model):
     _inherit = 'account.invoice'
 
-    analytic_account_id = fields.Many2one('account.analytic.account', string='Analytic Account')
+    # analytic_account_id = fields.Many2one('account.analytic.account', string='Analytic Account')
 
     @api.model
     def create(self, vals):
