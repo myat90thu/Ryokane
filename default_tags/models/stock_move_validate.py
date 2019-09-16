@@ -120,3 +120,4 @@ class TaxInvoiceLine(models.Model):
         self.update({
             'account_analytic_id': self.analytic_account_id.id
         })
+

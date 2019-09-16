@@ -66,6 +66,18 @@ class InvoiceLines(models.Model):
                 'account_analytic_id': self.analytic_account_id.id
             })
 
+    @api.onchange('analytic_tag_id')
+    def onchange_account(self):
+        for lines in self.invoice_line_ids:
+            lines.update({
+                'analytic_tag_ids': self.analytic_tag_id
+            })
+        for tax_line in self.tax_line_ids:
+            tax_line.update({
+                'analytic_tag_ids': [(6, 0, self.analytic_tag_id.ids)],
+                'account_analytic_id': self.account_analytic_id.id
+            })
+
     @api.onchange('tax_line_ids')
     def onchange_tax_tags(self):
         for tax_line in self.tax_line_ids:
