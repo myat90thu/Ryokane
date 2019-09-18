@@ -27,9 +27,7 @@ class SalesOrderDoubleApproval(models.Model):
     @api.multi
     def action_confirm(self):
         for so in self:
-            if so.state not in ['draft']:
-                continue
-            if so.type_name == 'Quotation':
+            if so.state == 'draft' or so.state == 'sent':
                 ir_param = so.env['ir.config_parameter'].sudo()
                 is_double_enabled = \
                     bool(ir_param.get_param(
