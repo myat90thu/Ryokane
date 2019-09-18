@@ -1,0 +1,6 @@
+<odoo>
+    <record id="double_verification_sales_right" model="res.groups">
+        <field name="name">Sales Order Double Approval</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+</odoo>
