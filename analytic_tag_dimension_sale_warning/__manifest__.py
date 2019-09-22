@@ -2,7 +2,7 @@
     "name": "Analytic Tag Dimension Sale Warning",
     "summary": "Group Analytic Entries by Dimensions",
     "category": "Accounting",
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.0.2",
     "author": "Wafi Chaar",
     "website": "https://www.hloul-bas.com",
     "depends": ['base', 'analytic_tag_dimension',

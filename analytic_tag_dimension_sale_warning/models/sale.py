@@ -3,6 +3,7 @@ from odoo.exceptions import UserError
 from odoo.tools.float_utils import float_round
 from odoo.exceptions import ValidationError
 
+
 # Add tag validation in sale order
 
 
@@ -136,15 +137,5 @@ class ReturnStockPicking(models.TransientModel):
                     location_id = picking.picking_type_id.return_picking_type_id.default_location_dest_id.id
                 res['location_id'] = location_id
         return res
-
-    class InvoiceAccount(models.Model):
-        _inherit = 'account.invoice'
-
-        analytic_tag_id = fields.Many2many('account.analytic.tag', String='Partner Analytic Tag')
-
-
-
-
-
 
 

@@ -88,36 +88,3 @@ class PurchaseTagLine(models.Model):
         res['context']['default_account_analytic_id'] = self.analytic_account_id.id
         return res
 
-
-class TaxInvoiceLine(models.Model):
-    _inherit = 'account.invoice'
-
-    # @api.onchange('invoice_line_ids')
-    # def _onchange_invoice_line_ids(self):
-    #     taxes_grouped = self.get_taxes_values()
-    #     tax_lines = self.tax_line_ids.filtered('manual')
-    #     for tax in taxes_grouped.values():
-    #         tax_lines += tax_lines.new(tax)
-    #     self.tax_line_ids = tax_lines
-    #     self.tax_line_ids.update({
-    #         'analytic_tag_ids': [(6, 0, self.analytic_tag_id.ids)],
-    #         'account_analytic_id': self.account_analytic_id.id
-    #     })
-    #
-    #     return
-
-    @api.onchange('invoice_line_ids')
-    def _onchange_invoice_line_ids(self):
-        taxes_grouped = self.get_taxes_values()
-        tax_lines = self.tax_line_ids.filtered('manual')
-        for tax in taxes_grouped.values():
-            tax_lines += tax_lines.new(tax)
-        self.tax_line_ids = tax_lines
-        return
-
-    @api.onchange('analytic_account_id')
-    def _onchange_invoice_line_account(self):
-        self.update({
-            'account_analytic_id': self.analytic_account_id.id
-        })
-

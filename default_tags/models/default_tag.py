@@ -27,66 +27,6 @@ class OrderLine(models.Model):
 # Add analytic account in invoice lines from invoice form view
 
 
-# class AccountInvoiceLine(models.Model):
-#     _inherit = 'account.invoice.line'
-#
-#     @api.model
-#     def create(self, vals):
-#         res = super(AccountInvoiceLine, self).create(vals)
-#         for x in res:
-#             x.update({
-#                 'analytic_tag_ids': res.invoice_id.analytic_tag_id,
-#             })
-#         return res
-
-
-class InvoiceLines(models.Model):
-    _inherit = 'account.invoice'
-
-    # analytic_account_id = fields.Many2one('account.analytic.account', string='Analytic Account')
-
-    @api.model
-    def create(self, vals):
-        res = super(InvoiceLines, self).create(vals)
-        for x in res.tax_line_ids:
-            x.update({
-                'analytic_tag_ids': res.analytic_tag_id,
-            })
-
-        for x in res.invoice_line_ids:
-            x.update({
-                'analytic_tag_ids': res.analytic_tag_id,
-            })
-        return res
-
-    @api.onchange('analytic_account_id')
-    def onchange_account(self):
-        for lines in self.invoice_line_ids:
-            lines.update({
-                'account_analytic_id': self.analytic_account_id.id
-            })
-
-    @api.onchange('analytic_tag_id')
-    def onchange_account(self):
-        for lines in self.invoice_line_ids:
-            lines.update({
-                'analytic_tag_ids': self.analytic_tag_id
-            })
-        for tax_line in self.tax_line_ids:
-            tax_line.update({
-                'analytic_tag_ids': [(6, 0, self.analytic_tag_id.ids)],
-                'account_analytic_id': self.account_analytic_id.id
-            })
-
-    @api.onchange('tax_line_ids')
-    def onchange_tax_tags(self):
-        for tax_line in self.tax_line_ids:
-            tax_line.update({
-                'analytic_tag_ids': [(6, 0, self.analytic_tag_id.ids)],
-                'account_analytic_id': self.account_analytic_id.id
-            })
-
-
 # Add analytic account in invoice lines from invoice form view
 
 

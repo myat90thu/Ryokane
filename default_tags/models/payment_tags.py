@@ -42,11 +42,5 @@ class OrderLinePurchase(models.Model):
             })
 
 
-# class PurchaseTaxLine(models.Model):
-#     _inherit = 'account.invoice.line'
-#
-#     @api.onchange('invoice_lines')
-#     def onchange_line_purchase(self):
-#         print("ljjjjjjjjjjjjjjjjj")
 
 
