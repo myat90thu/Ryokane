@@ -50,4 +50,4 @@ class deliverymodeforsale(models.Model):
 class deliverymodeforinvoice(models.Model):
     _inherit = 'account.invoice'
     _name='account.invoice'
-    delivery_mode=fields.Many2one('delivery.mode',string='Delivery mode')
+    delivery_mode=fields.Many2one('delivery.mode',string='Mode de livraison')
