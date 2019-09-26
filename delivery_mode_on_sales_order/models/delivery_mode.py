@@ -13,7 +13,7 @@ class deliverymode(models.Model):
 class deliverymodeforsale(models.Model):
     _inherit = 'sale.order'
 
-    delivery_mode = fields.Many2one('delivery.mode',string="Delivery Mode")
+    delivery_mode = fields.Many2one('delivery.mode',string="Mode de livraison")
     @api.multi
     def _prepare_invoice(self):
         """
