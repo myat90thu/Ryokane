@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+<record id="view_calendar_event_form" model="ir.ui.view">
+    <field name="name">calendar.event.form</field>
+    <field name="model">calendar.event</field>
+    <field name="priority" eval="1"/>
+    <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='partner_ids']" position="replace">
+                <field name="partner_ids" widget="many2manyattendee"
+                                placeholder="Select attendees..."
+                                context="{'force_email':False}"
+                                class="oe_inline"/>
+        </xpath>
+    </field>
+</record>
+</odoo>
