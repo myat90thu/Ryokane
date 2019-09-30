@@ -99,6 +99,6 @@ class AccountInvoiceRefund(models.TransientModel):
         })
         for tax in account.tax_line_ids:
             tax.update({
-                'analytic_tag_ids': account.refund_invoice_id.tax_line_ids.analytic_tag_ids.ids
+                'analytic_tag_ids': account.refund_invoice_id.tax_line_ids[0].analytic_tag_ids.ids
             })
         return res
