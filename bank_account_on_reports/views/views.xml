@@ -5,7 +5,7 @@
 		<field name="model">sale.order</field>
 		<field name="inherit_id" ref="sale.view_order_form"/>
 		<field name="arch" type="xml">
-			<xpath expr="//field[@name='delivery_mode']" position="after">
+			<xpath expr="//field[@name='payment_term_id']" position="after">
 				<field name="bank_account"/>
 			</xpath>
 		</field>
@@ -16,7 +16,7 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>            
             <field name="arch" type="xml">
-            <xpath expr="//field[@name='delivery_mode']" position="after">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
             <field name="bank_account"/>
             </xpath>
             </field>
