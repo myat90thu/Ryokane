@@ -44,6 +44,6 @@ class crmpartnercolor(models.Model):
             if record.partner_id.partner_state and record.partner_id.customer and record.partner_id.is_company:
                 record.color= 10
             elif not record.partner_id.partner_state and record.partner_id.customer and record.partner_id.is_company:
-                record.color=1
-            else:
                 record.color=3
+            else:
+                record.color=1
