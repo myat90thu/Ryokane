@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record model="ir.ui.view" id="res_partner_kanban_view">
+        <field name="name">res.partner.kanban</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='color']" position="after">
+        <field name="partner_state"/>
+        <field name="customer"/>
+        </xpath>
+        <xpath expr="//div[@class='oe_kanban_details']" position="after">
+        <t>
+        <t t-if="record.partner_state.raw_value === true and record.customer.raw_value === true and record.is_company.raw_value === true" >
+        <div style="float: left; width: 20px; height: 20px; margin: 5px; border: 1px solid rgba(0, 0, 0, .2); background: green;"></div></t>
+        <t t-elif="record.partner_state.raw_value === false and record.customer.raw_value === true">
+        <div style="float: left; width: 20px; height: 20px; margin: 5px; border: 1px solid rgba(0, 0, 0, .2); background: red;"></div>
+        </t>
+        </t>
+        </xpath>
+        </field>
+</record>
+
+<record model="ir.ui.view" id="crm_case_kanban_view_leads">
+        <field name="name">crm.lead.kanban.lead</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+        <field name="arch" type="xml">
+        <xpath expr="//div[@class='oe_kanban_content']" position="replace">
+        <div class="oe_kanban_content kanban_color">
+        <div>
+                                        <strong class="o_kanban_record_title"><field name="name"/></strong>
+                                    </div>
+                                    <div>
+                                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    </div>
+                                    <div class="text-muted o_kanban_record_subtitle">
+                                        <t t-if="record.planned_revenue.raw_value"><field name="planned_revenue" widget="monetary" options="{'currency_field': 'company_currency'}"/><span t-if="record.partner_id.value">,</span></t> <span t-if="record.partner_id.value"> <t t-esc="record.partner_id.value"/></span>
+                                    </div>
+
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            <field name="priority" widget="priority" groups="base.group_user"/>
+                                            <t t-if="record.message_needaction_counter.raw_value">
+                                                <span role="alert" class="oe_kanban_mail_new" title="Unread Messages"><i class="fa fa-comments" aria-label="Unread messages" role="img"/><t t-raw="record.message_needaction_counter.raw_value"/></span>
+                                            </t>
+                                            <field name="activity_ids" widget="kanban_activity"/>
+                                        </div>
+                                        <div class="oe_kanban_bottom_right">
+                                            <img t-att-src="kanban_image('res.users', 'image_small', record.user_id.raw_value)" t-att-title="record.user_id.value" t-att-alt="record.user_id.value" width="24" height="24" class="oe_kanban_avatar"/>
+                                        </div>
+                                    </div>
+                                </div>
+        </xpath>
+        </field>
+</record>
+</odoo>
