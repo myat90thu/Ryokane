@@ -4,10 +4,10 @@
     'summary': """
        """,
     'author': 'Wafi Chaar',
-    'company': 'HLOUL-BAS',
+    'company': 'BAS',
     'category': 'Sale',
-    'website': 'https://www.hloul-bas.com',
-    'version': '12.0.1.0.2',
+    'website': 'https://www.bas.sarl',
+    'version': '12.0.1.0.3',
     'depends': ['base', 'purchase', 'sale', 'contacts', 'stock_landed_costs'],
     'data': [
         'views/order_line.xml',

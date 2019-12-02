@@ -32,6 +32,25 @@ class MrpProduction(models.Model):
 class MrpProductProduce(models.TransientModel):
     _inherit = "mrp.product.produce"
 
+    # @api.multi
+    # def do_produce(self):
+    #     res = super(MrpProductProduce, self).do_produce()
+    #     for move in self.production_id.move_finished_ids:
+    #         move.update({
+    #             'analytic_tag_ids': [(6, 0, self.production_id.mrp_analytic_tags.ids)]
+    #         })
+    #     for move in self.production_id.move_raw_ids:
+    #         move.update({
+    #             'analytic_tag_ids': [(6, 0, self.production_id.mrp_analytic_tags.ids)]
+    #         })
+    #     stock_move_lines = self.env['stock.move.line'].search([('production_id', '=', self.production_id.id)])
+    #     for stock_move_line in stock_move_lines:
+    #         if stock_move_line.product_qty != stock_move_line.qty_done:
+    #             stock_move_line.update({
+    #                 'product_uom_qty': stock_move_line.qty_done
+    #             })
+    #     return res
+
     @api.multi
     def do_produce(self):
         res = super(MrpProductProduce, self).do_produce()
@@ -44,9 +63,10 @@ class MrpProductProduce(models.TransientModel):
                 'analytic_tag_ids': [(6, 0, self.production_id.mrp_analytic_tags.ids)]
             })
         stock_move_lines = self.env['stock.move.line'].search([('production_id', '=', self.production_id.id)])
-        for stock_move_line in stock_move_lines:
-            if stock_move_line.product_qty != stock_move_line.qty_done:
-                stock_move_line.update({
-                    'product_uom_qty': stock_move_line.qty_done
-                })
+        # for stock_move_line in stock_move_lines:
+        #     if stock_move_line.product_qty != stock_move_line.qty_done:
+        #         stock_move_line.update({
+        #             'product_uom_qty': stock_move_line.qty_done
+        #         })
+
         return res
