@@ -6,7 +6,7 @@
             <field name="arch" type="xml">
                 <pivot string="Price Per Pricelist">
                 <field name="name" type="col"/>
-                <field name="item_ids.id"/>
+                <field name="item_ids"/>
                 </pivot>
             </field>
         </record>
