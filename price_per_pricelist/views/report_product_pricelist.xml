@@ -16,7 +16,7 @@
             <field name="res_model">product.pricelist</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,kanban,form,pivot</field>
-            <field name="search_view_id" ref="product_pricelist_view_search" />
+            <field name="search_view_id" ref="product.product_pricelist_view_search" />
             <field name="context">{"default_base":'list_price'}</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
