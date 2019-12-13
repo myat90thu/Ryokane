@@ -1,0 +1,12 @@
+.oe_product .product_price {
+position: absolute;
+bottom: 0;
+padding: 5px 0;
+width: 90% !important;
+}
+
+a.btn.btn-default.btn-xs.fa.fa-shopping-cart.a-submit {
+float: right;
+margin-right: 1px;
+margin-left: -6px;
+}
