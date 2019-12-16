@@ -5,7 +5,7 @@
             <field name="model">product.pricelist.item</field>
             <field name="inherit_id" ref="product.product_pricelist_view_tree"/> 
             <field name="arch" type="xml">
-            <xpath>
+            <xpath expr="//field [@name='sequence']" position="before">
                 <field name="pricelist_formatted_table"/>
                 </xpath>
             </field>
