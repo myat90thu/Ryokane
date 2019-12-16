@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<record id="product_pricelist_view_pivot" model="ir.ui.view">
-            <field name="name">product.pricelist.pivot</field>
-            <field name="model">product.pricelist</field>
+<record id="product_pricelist_item_view_tree" model="ir.ui.view">
+            <field name="name">product.pricelist.item.tree</field>
+            <field name="model">product.pricelist.item</field>
+            <field name="inherit_id" ref="product.product_pricelist_view_tree"/> 
             <field name="arch" type="xml">
-                <pivot string="Price Per Pricelist">
-                <field name="name" type="col"/>
-                <field name="item_ids"/>
-                </pivot>
+            <xpath expr="//tree[@string='Products Price List'" position="before">
+                <field name="pricelist_formatted_table"/>
+            </xpath>
             </field>
         </record>
 </odoo>
