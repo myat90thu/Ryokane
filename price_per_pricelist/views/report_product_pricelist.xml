@@ -7,7 +7,7 @@
     <pivot string="Product Prices">
     <field name="pricelist_id" type="col"/>
     <field name="product_tmpl_id" type="row"/>
-    <field name="fixed_price" type="measure"/>
+    <field name="fixed_price" />
     </pivot>
     </field>
 </record>
