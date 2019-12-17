@@ -11,7 +11,7 @@ class SalesTarget(models.Model):
     user_line = fields.One2many('sales.person', 'line_id', string="Salesperson List")
 
     @api.multi
-    def sales(self):
+    def get_sales(self):
         sales = []
         for line in self.user_line:
             if line:
