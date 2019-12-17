@@ -1,8 +1,9 @@
 from odoo import _, api, fields, models
 
 class salestarget(models.Model):
-    _inherit = 'sale.target'
+    _name = 'sale.target'
     salesperson_id= fields.Many2one('res.users', string='Salesperson', track_visibility='onchange', default=lambda self: self.env.user)
+    team_id=fields.Many2one('crm.team', string='Salesteam', track_visibility='onchange', default=lambda self: self.env.user)
     sales_target=fields.Float(string="Sales Target")
     sales_target_type=fields.Selection([('personal', 'Individual'),('team', 'Team')],string="Target Type", required=True)
     sales_target_process=fields.Float(string="Sales Target Process",_compute='_compute_sales_target_process',readonly=True)
