@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <odoo>
     <data>
-        <record id="sale_engineer_target_form" model="ir.ui.view">
-            <field name="name">sale.engineer.target.form</field>
-            <field name="model">target.sale.engineer</field>
+        <record id="sale_target" model="ir.ui.view">
+            <field name="name">sale.target.form</field>
+            <field name="model">sale.target</field>
             <field name="arch" type="xml">
                 <form string="Sales Person Target">
                     <sheet>
@@ -36,9 +36,9 @@
             </field>
         </record>
 
-        <record model='ir.ui.view' id='sale_engineer_target_tree'>
-            <field name="name">sale.engineer.target.tree</field>
-            <field name="model">target.sale.engineer</field>
+        <record model='ir.ui.view' id='sale_target_tree'>
+            <field name="name">sale.target.tree</field>
+            <field name="model">sale.target</field>
             <field name="arch" type="xml">
                 <tree string="Sale Person">
                     <field name="name"/>
@@ -48,9 +48,9 @@
             </field>
         </record>
 
-        <record model='ir.actions.act_window' id='sale_engineer_target_act'>
+        <record model='ir.actions.act_window' id='sale_target_act'>
             <field name="name">Sales Person Target</field>
-            <field name="res_model">target.sale.engineer</field>
+            <field name="res_model">sale.target</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
@@ -58,7 +58,7 @@
         <menuitem
             id="menu_monthly_sale_person_target" 
             parent="sale.sale_order_menu" 
-            action="sale_engineer_target_act"
+            action="sale_target_act"
             sequence="25"/>
     </data>
 </odoo>
