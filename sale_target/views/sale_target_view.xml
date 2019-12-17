@@ -27,7 +27,6 @@
                                 <field name="user_id" required="1"/>
                                 <field name="target" required="1"/>
                                 <field name="actual" readonly="1"/>
-                                <field name="pending" readonly="1"/>
                                 <field name="line_id" invisible="1"/>
                             </tree>
                         </field>
