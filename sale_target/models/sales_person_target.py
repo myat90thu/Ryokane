@@ -22,7 +22,9 @@ class SalesTarget(models.Model):
             sales = saleorder.search([
                 ('user_id', '=', line.user_id.id),
                 ('date_invoice', '>=', self.from_date),
-                ('date_invoice', '<=', self.end_date)
+                ('date_invoice', '<=', self.end_date),
+                ('state','!=','draft'),
+                ('state','!=','cancelled')
             ])
             if sales:
                 for sale in sales:
