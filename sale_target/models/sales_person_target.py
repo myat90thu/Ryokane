@@ -23,8 +23,9 @@ class SalesTarget(models.Model):
                 ('user_id', '=', line.user_id.id),
                 ('date_invoice', '>=', self.from_date),
                 ('date_invoice', '<=', self.end_date),
-                ('state','!=','draft'),
-                ('state','!=','cancel')
+                ('state','=','open'),
+                ('state','=','in_payment'),
+                ('state','=','paid')
             ])
             if sales:
                 for sale in sales:
