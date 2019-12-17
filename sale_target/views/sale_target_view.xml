@@ -21,7 +21,7 @@
                             <group>
                             </group>
                         </group>
-                        <button name="fetch_value" string="Load Data" type="object" class="oe_stat_button" icon="fa-spinner"/>
+                        <button name="get_sales" string="Load Data" type="object" class="oe_stat_button" icon="fa-spinner"/>
                         <field name="user_line">
                             <tree string="Sales Person" editable="bottom">
                                 <field name="user_id" required="1"/>
