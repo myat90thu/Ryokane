@@ -12,7 +12,7 @@
     </field>
 </record>
 <record model="ir.actions.act_window" id="action_product_prices">
-    <field name="name">product.pricelist.item.pivot.action</field>
+    <field name="name">Pricelist Items</field>
     <field name="res_model">product.pricelist.item</field>
     <field name="view_mode">pivot</field>
     <field name="view_id" ref="product_pricelist_item_view_pivot"/>
