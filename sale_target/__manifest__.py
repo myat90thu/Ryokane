@@ -1,8 +1,8 @@
 
 {
-    'name': 'Sales Team Target Management',
-    'version': '1.1',
-    'summary': 'Sales Team Target Management',
+    'name': 'Sales Team Target',
+    'version': '1.0',
+    'summary': 'Sales Team Target',
     'author': 'BAS',
     'category': 'Sales',
     'website': 'http://www.bas.sarl',
