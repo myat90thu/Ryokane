@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<record id="product_pricelist_view_pivot" model="ir.ui.view">
-            <field name="name">product.pricelist.pivot</field>
-            <field name="model">product.pricelist</field>
-            <field name="arch" type="xml">
-                <pivot string="Price Per Pricelist">
-                <field name="name" type="col"/>
-                <field name="item_ids"/>
-                </pivot>
-            </field>
-        </record>
+<record id="product_pricelist_item_view_pivot" model="ir.ui.view">
+    <field name="name">product.pricelist.item.pivot</field>
+    <field name="model">product.pricelist.item</field>
+    <field name="arch" type="xml">
+    <pivot string="Product Prices">
+    <field name="pricelist_id" type="col"/>
+    <field name="product_tmpl_id" type="row"/>
+    <field name="fixed_price" />
+    </pivot>
+    </field>
+</record>
+<record model="ir.actions.act_window" id="action_product_prices">
+    <field name="name">Pricelist Items</field>
+    <field name="res_model">product.pricelist.item</field>
+    <field name="view_mode">pivot</field>
+    <field name="view_id" ref="product_pricelist_item_view_pivot"/>
+</record>
+<!-- <action id="action_product_prices"
+    name="All Price Lists"
+    res_model="product.pricelist.item"
+    groups="product.group_sale_pricelist"
+    view_mode="pivot" target="new" view_type="pivot"/> -->
+
+<menuitem action="action_product_prices" id="menu_product_prices"
+    parent="sale.product_menu_catalog" sequence="7" groups="product.group_sale_pricelist"/>
+
 </odoo>
