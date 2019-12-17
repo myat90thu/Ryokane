@@ -30,8 +30,8 @@ class SalesTarget(models.Model):
                 for sale in sales:
                     for line in self.user_line:
                         if line.user_id == sale.user_id:
-                            line.actual += sale.amount_total
-                            line.pending = line.target - sale.amount_total
+                            line.actual += sale.amount_untaxed
+                            line.pending = line.target - sale.amount_untaxed
         return True
 
 
