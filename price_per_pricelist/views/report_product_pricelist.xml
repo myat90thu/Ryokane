@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 <record id="product_pricelist_item_view_pivot" model="ir.ui.view">
-            <field name="name">product.pricelist.item.pivot</field>
-            <field name="model">product.pricelist.item</field>
-            <field name="arch" type="xml">
-            <pivot string="Product Prices">
-            <field name="pricelist_id" type="col"/>
-            <field name="product_id" type="row"/>
-            <field name="fixed_price" type="measure" widget="float_time"/>
-            </pivot>
-            </field>
-        </record>
+    <field name="name">product.pricelist.item.pivot</field>
+    <field name="model">product.pricelist.item</field>
+    <field name="arch" type="xml">
+    <pivot string="Product Prices">
+    <field name="pricelist_id" type="col"/>
+    <field name="product_id" type="row"/>
+    <field name="fixed_price" type="measure"/>
+    </pivot>
+    </field>
+</record>
 
 <action id="action_product_prices"
     name="All Price Lists"
     res_model="product.pricelist.item"
     groups="product.group_sale_pricelist"
     view_mode="pivot" target="new" view_type="pivot"/>
-    
-<menuitem action="action_productprices" id="menu_product_prices"
+
+<menuitem action="action_product_prices" id="menu_product_prices"
     parent="sale.product_menu_catalog" sequence="7" groups="product.group_sale_pricelist"/>
 
 </odoo>
