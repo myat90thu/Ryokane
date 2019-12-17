@@ -17,13 +17,12 @@ class SalesTarget(models.Model):
             if line:
                 line.actual = 0
                 line.pending = 0
-        saleorder = self.env['sale.order']
+        saleorder = self.env['account.invoice']
         for line in self.user_line:
             sales = saleorder.search([
                 ('user_id', '=', line.user_id.id),
-                ('state', '=', 'sale'),
-                ('confirmation_date', '>=', self.from_date),
-                ('confirmation_date', '<=', self.end_date)
+                ('date_invoice', '>=', self.from_date),
+                ('date_invoice', '<=', self.end_date)
             ])
             if sales:
                 for sale in sales:
