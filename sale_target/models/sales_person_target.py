@@ -24,9 +24,9 @@ class SalesTarget(models.Model):
                 ('date_invoice', '>=', self.from_date),
                 ('date_invoice', '<=', self.end_date),
                 '!',
-                ('status','=','draft'),
+                ('state','=','draft'),
                 '!',
-                ('status','=','cancel')
+                ('state','=','cancel')
             ])
             if sales:
                 for sale in sales:
