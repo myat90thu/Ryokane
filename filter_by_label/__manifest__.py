@@ -8,7 +8,7 @@
     'description': "",
     'depends': ['website', 'sale', 'website_payment', 'website_mail', 'website_form', 'website_rating', 'digest'],
     'data': [
-        
+        'views/templates.xml'
     ],
     'demo': [
         
