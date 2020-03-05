@@ -45,7 +45,7 @@ odoo.define('website_sale.website_sale', function(require) {
                 var oldurl = $this.attr('action');
                 oldurl += (oldurl.indexOf("?") === -1) ? "?" : "";
                 var search = $this.find('input.search-query');
-                window.location = oldurl + '&' + search.attr('name') + '=' + encodeURIComponent(search.val());
+                window.location = oldurl + '&' + search.attr('x_studio_website_label') + '=' + encodeURIComponent(search.val());
             }
         },
     });
