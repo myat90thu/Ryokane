@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 <template id="assets_frontend" inherit_id="website.assets_frontend">
-        <xpath expr="script[last()]" position="after">
+        <xpath expr="script[2]" position="replace">
 
             <script type="text/javascript" src="/filter_by_label/src/js/website_sale.js"></script>
             </xpath>
