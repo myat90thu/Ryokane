@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_config_view_form_inherit" model="ir.ui.view">
+        <field name="name">pos.config.form.view.inherit</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//h2[last()]" position="before">
+                <h2 groups="analytic.group_analytic_accounting">Analytic</h2>
+                <div class="row mt16 o_settings_container" groups="analytic.group_analytic_accounting">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Analytic Tags</span>
+                            <div class="text-muted">
+                                Configuration for analytic tags
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label string="Analytic Tags" for="analytic_tag_ids" class="col-md-3 o_light_label"
+                                           widget="selection"/>
+                                    <field name="analytic_tag_ids"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_pos_pos_form_inherit" model="ir.ui.view">
+        <field name="name">pos.order.view</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="analytic_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </xpath>
+            <xpath expr="//field[@name='lines']/tree/field[@name='product_id']" position="after">
+                <field name="analytic_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </xpath>
+            <xpath expr="//field[@name='lines']/form/group/field[@name='product_id']" position="after">
+                <field name="analytic_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>
