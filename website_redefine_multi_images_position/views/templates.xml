@@ -28,7 +28,7 @@
                             </t>
                         </ol>
                         <div class="carousel-outer position-relative">
-                            <div class="carousel-inner">
+                            <div class="carousel-inner" style="border: 1px ridge #aaa; border-radius: 3px; height:511.67px">
                                 <div t-if="variant_img" class="carousel-item active" itemprop="image" t-field="product_variant.image" t-options="{'widget': 'image', 'class': 'product_detail_img js_variant_img', 'alt-field': 'name', 'zoom': 'image', 'unique': str(product['__last_update']) + (str(product_variant['__last_update']) or '')}"/>
                                 <div t-attf-class="carousel-item#{'' if variant_img else ' active'}" itemprop="image" t-field="product.image" t-options="{'widget': 'image', 'class': 'product_detail_img', 'alt-field': 'name', 'zoom': 'image', 'unique': product['__last_update']}"/>
                                 <t t-if="len(image_ids)" t-foreach="image_ids" t-as="pimg">
