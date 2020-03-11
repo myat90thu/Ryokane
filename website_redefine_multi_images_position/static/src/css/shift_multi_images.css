@@ -43,12 +43,12 @@
 /*custom CSS*/
 
 h1[itemprop=name] {
-    font-size: 3em;;
-    font-weight: 600;
+    font-size: 3em;
+    font-weight: 500;
 }
 
 
-.website_redefine_css_left{
+.website_redefine_css_left {
     padding: 0px !important;
 
 
@@ -71,5 +71,6 @@ h1[itemprop=name] {
 
 #o-carousel-product .carousel-indicators li img {
     width: 100%;
-    border: 2px thin #abadb0 !important;
+    border: 1px solid #000000;
+    border-radius: 5px;
 }
