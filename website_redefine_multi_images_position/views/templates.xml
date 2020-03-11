@@ -11,7 +11,7 @@
             <xpath expr="//div[@id='o-carousel-product']" position="replace">
 
                 <t t-set="image_position" t-value="request.env['ir.config_parameter'].sudo().get_param('website_sale.multi_image_tab_position_settings')"/>
-                <t t-set="image_ids" t-value="product_variant.product_image_ids[:3] if product_variant else product.product_image_ids"/>
+                <t t-set="image_ids" t-value="product_variant.product_image_ids[:2] if product_variant else product.product_image_ids[:2]"/>
                 <t t-if="image_position == 'top'">
                     <div id="o-carousel-product" class="carousel slide" data-ride="carousel" data-interval="0">
                         <ol class="carousel-indicators" t-if="len(image_ids) or variant_img">
