@@ -19,7 +19,7 @@ class ResConfigSettings(models.TransientModel):
         ('top', 'Top'),
         ('bottom','Bottom')], string="Set Multi-Images Position",default='bottom')
 
-    @api.multi
+    # @api.multi
     def set_values(self):
         super(ResConfigSettings, self).set_values()
         value = self.multi_image_tab_position_settings or 'bottom'

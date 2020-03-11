@@ -1,21 +1,18 @@
 /* Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) */
-
-
 /* See LICENSE file for full copyright and licensing details. */
-
-
 /* License URL : <https://store.webkul.com/license.html/> */
-
 .wk-left-shift {
     width: 12%;
     float: left;
     height: 100%;
+
 }
 
 .wk-right-shift {
     width: 12%;
     float: right;
     height: 100%;
+
 }
 
 .wk-indicatiors {
@@ -42,8 +39,30 @@
     right: 76px;
 }
 
-.custom-carousel-inner {
-    border: 1px ridge #aaa;
-    border-radius: 3px;
-    height: 470px;
+
+/*custom CSS*/
+
+h1[itemprop=name] {
+    font-size: 3em;;
+    font-weight: 600;
+}
+
+
+.website_redefine_css{
+    /*background: red;*/
+
+
+}
+
+
+#o-carousel-product .carousel-indicators li {
+    background-color: transparent !important;
+    border-radius: 0;
+    display: block;
+    margin: 8px !important;
+    width: 150px !important;
+    height: 150px !important;
+    /*border: 2px grey !important;*/
+
+    box-shadow: none !important;
 }
