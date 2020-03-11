@@ -37,7 +37,7 @@ Different Multi Images Position
 Website Shift Images
 Images Tab in Left""",
   "live_test_url"        :  "http://odoodemo.webkul.com/?module=website_redefine_multi_images_position",
-  "depends"              :  ['website_sale'],
+  "depends"              :  ['base','web','website_sale'],
   "data"                 :  [
                              'views/templates.xml',
                              'views/res_config_settings_views.xml',
