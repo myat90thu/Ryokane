@@ -59,7 +59,7 @@ h1[itemprop=name] {
     background-color: transparent !important;
     border-radius: 0;
     display: block;
-    margin: 4px !important;
+    margin-bottom: 4px !important;
     width: 150px !important;
     height: 150px !important;
     padding: 0px !important;
