@@ -118,7 +118,7 @@
                 </t>
                 <t t-if="image_position == 'left'">
                     <div id="o-carousel-product" class="carousel slide" data-ride="carousel" data-interval="0">
-                        <div t-ignore="True" class="website_redefine_css d-none d-md-block text-center" style="float: left;width: 100px;">
+                        <div t-ignore="True" class="website_redefine_css_left d-none d-md-block text-center" style="float: left;width: 100%;">
                             <ol class="carousel-indicators wk-indicatiors" t-if="len(image_ids) or variant_img">
                                 <li t-if="variant_img" data-target="#o-carousel-product" data-slide-to="0" class="active">
                                     <img class="img img-fluid js_variant_img_small" t-attf-src="/website/image/product.product/{{product_variant.id}}/image/90x90" t-att-alt="product.name"/>
@@ -133,7 +133,7 @@
                                 </t>
                             </ol>
                         </div>
-                        <div class="carousel-outer position-relative col-md-6 col-xl-8" style="float: left">
+                        <div class="carousel-outer position-relative col-md-6 col-xl-8 website_redefine_css_right" style="float: right">
                             <div class="carousel-inner">
                                 <div t-if="variant_img" class="carousel-item active" itemprop="image" t-field="product_variant.image" t-options="{'widget': 'image', 'class': 'product_detail_img js_variant_img', 'alt-field': 'name', 'zoom': 'image', 'unique': str(product['__last_update']) + (str(product_variant['__last_update']) or '')}"/>
                                 <div t-attf-class="carousel-item#{'' if variant_img else ' active'}" itemprop="image" t-field="product.image" t-options="{'widget': 'image', 'class': 'product_detail_img', 'alt-field': 'name', 'zoom': 'image', 'unique': product['__last_update']}"/>

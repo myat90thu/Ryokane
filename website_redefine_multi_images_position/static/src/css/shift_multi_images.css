@@ -59,10 +59,16 @@ h1[itemprop=name] {
     background-color: transparent !important;
     border-radius: 0;
     display: block;
-    margin: 8px !important;
+    margin: 2px !important;
     width: 150px !important;
     height: 150px !important;
     /*border: 2px grey !important;*/
 
     box-shadow: none !important;
+
+}
+
+
+#o-carousel-product .carousel-indicators li img {
+    width: 100%;
 }
