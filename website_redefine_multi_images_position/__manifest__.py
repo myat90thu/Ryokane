@@ -17,7 +17,7 @@
   "name"                 :  "Website Redefine Multi Images Position",
   "summary"              :  "The website user can now select the position of the product carousel on the product page. The multi images can be placed at left, right, top or bottom of the product image.",
   "category"             :  "Website",
-  "version"              :  "1.1.1",
+  "version"              :  "1.1.2",
   "author"               :  "Webkul Software Pvt. Ltd.",
   "license"              :  "Other proprietary",
   "website"              :  "https://store.webkul.com/Odoo-Website-Redefine-Multi-Images-Position.html",
@@ -37,7 +37,7 @@ Different Multi Images Position
 Website Shift Images
 Images Tab in Left""",
   "live_test_url"        :  "http://odoodemo.webkul.com/?module=website_redefine_multi_images_position",
-  "depends"              :  ['website_sale'],
+  "depends"              :  ['website_sale', 'base'],
   "data"                 :  [
                              'views/templates.xml',
                              'views/res_config_settings_views.xml',
