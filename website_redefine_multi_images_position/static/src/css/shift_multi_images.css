@@ -44,7 +44,7 @@
 
 h1[itemprop=name] {
     font-size: 3em;
-    font-weight: 500;
+    /*font-weight: 500;*/
 }
 
 
@@ -72,5 +72,12 @@ h1[itemprop=name] {
 #o-carousel-product .carousel-indicators li img {
     width: 100%;
     border: 1px solid #000000;
-    border-radius: 5px;
+
+}
+
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid #000000;
 }
