@@ -87,7 +87,7 @@ h1[itemprop=name] {
     border: 1px solid #000000;
 }
 
-#website_sale_recommended_products .col-lg-2 {
-    background: red;
-    width: 33.33% !important;
+.alternate_image_size{
+    width: 100%;
+    height: 100%;
 }
