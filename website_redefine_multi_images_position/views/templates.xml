@@ -154,7 +154,7 @@
         </template>
         <template id="add_x_studio_fields" inherit_id="website_sale.product">
             <xpath expr="//a[@id='add_to_cart']" position="before">
-                <p><br/> <span t-field="product.x_studio_product_label" /></p>
+                <p style="color:#ea9c0a"><br/> <span t-field="product.x_studio_product_label" /></p>
                 <p><br/> <span t-field="product.x_studio_product_size" /></p>
             </xpath>
             <xpath expr="//p[hasclass('text-muted')][last()]" position="after">
