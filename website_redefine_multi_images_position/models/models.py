@@ -48,5 +48,5 @@ class Product(models.Model):
     _inherit = "product.template"
 
     x_studio_product_size = fields.Char(string="Product Size")
-    x_studio_vidoe_link = fields.Char(string="Video Link")
+    x_studio_vidoe_link = fields.Html(string="Video Link")
         
