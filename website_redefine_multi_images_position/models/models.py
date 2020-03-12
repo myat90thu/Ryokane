@@ -44,8 +44,9 @@ class ResConfigSettings(models.TransientModel):
 
 
 class Product(models.Model):
-    """docstring for ClassName"""
+    """docstring for Product"""
+    _inherit = "product.template"
 
-    product_size = fields.Char(string="Product Size")
-    vidoe_link = fields.Char(string="Video Link")
+    x_studio_product_size = fields.Char(string="Product Size")
+    x_studio_vidoe_link = fields.Char(string="Video Link")
         
