@@ -87,8 +87,8 @@ h1[itemprop=name] {
     border: 1px solid #000000;
 }
 
-/*.alternate_image_size{
-    width: 100%;
-    height: 100%;
+.alternate_image_size{
+    /*width: 100%;*/
+    /*height: 100%;*/
     border: 1px solid #000000;
-}*/
+}
