@@ -47,6 +47,8 @@ class Product(models.Model):
     """docstring for Product"""
     _inherit = "product.template"
 
-    product_size = fields.Char(string="Product Size")
-    vidoe_link = fields.Html(string="Video Link")
+    x_studio_product_size = fields.Char(string="Product Size")
+    x_studio_vidoe_link = fields.Html(string="Video Link")
+    x_studio_product_label = fields.Char(string="Product Label")
+
         

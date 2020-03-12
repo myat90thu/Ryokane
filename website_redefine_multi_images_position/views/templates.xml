@@ -154,34 +154,12 @@
         </template>
         <template id="add_x_studio_fields" inherit_id="website_sale.product">
             <xpath expr="//a[@id='add_to_cart']" position="before">
-                <p t-field="product.product_size" />
-                <p t-raw="product.vidoe_link" />
+                <p><br/> <span t-field="product.x_studio_product_label" /></p>
+                <p><br/> <span t-field="product.x_studio_product_size" /></p>
+            </xpath>
+            <xpath expr="//p[@t-field='product.description_sale']" position="after">
+                <p><br /><i class="fa fa-youtube fa-2x" style="color:#b91616"></i> <span t-raw="product.x_studio_vidoe_link" /> </p>
             </xpath>
         </template>
     </data>
 </odoo>
-<!-- <data inherit_id="website_sale.product" customize_show="True" name="Alternative Products">
-        <xpath expr="//div[@id='product_full_description']" position="after">
-            <div class="container mt32" t-if="product.alternative_product_ids">
-                <h3>Alternative Products:</h3>
-                <div class="row mt16" style="">
-                    <t t-foreach="product.alternative_product_ids" t-as="alt_product">
-                        <div class="col-lg-4" style="float:left; display:inline; overflow:hidden;">
-                            <div class="mt16 text-center" style="height: 100%;">
-                                <t t-set="combination_info" t-value="alt_product._get_combination_info()"/>
-                                <t t-set="product_variant" t-value="alt_product.env['product.product'].browse(combination_info['product_id'])"/>
-                                <div t-if="product_variant" t-field="product_variant.image_medium"  t-options="{'widget': 'image', 'class': 'rounded shadow o_alternative_product alternate_image_size' }"/>
-                                <div t-else="" t-field="alt_product.image_medium" t-options="{'widget': 'image', 'class': 'rounded shadow o_alternative_product alternate_image_size' }"/>
-                                <h5 style="margin-top:3px">
-                                    <a t-attf-href="/shop/product/#{ slug(alt_product) }" style="display: block">
-                                        <span t-att-title="alt_product.name" t-field="alt_product.name" class="o_text_overflow" style="display: block;"/>
-                                    </a>
-                                </h5>
-                            </div>
-                        </div>
-                    </t>
-                </div>
-            </div>
-        </xpath>
-    </data>
- -->

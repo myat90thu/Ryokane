@@ -6,8 +6,8 @@
         <field name="inherit_id" ref="website_sale.product_template_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='website_id']" position="after">
-                <field name="product_size" />
-                <field name="vidoe_link" />
+                <field name="x_studio_product_size" />
+                <field name="x_studio_vidoe_link" />
             </xpath>
         </field>
     </record>
