@@ -152,11 +152,16 @@
                 </t>
             </xpath>
         </template>
+        <template id="add_x_studio_fields" inherit_id="website_sale.product">
+            <xpath expr="//a[@id='add_to_cart']" position="after">
+                <span t-field="product.x_studio_product_size" />
+                <span t-field="product.x_studio_vidoe_link" />
+      
+            </xpath>
+        </template>
     </data>
 </odoo>
-
-
-<!-- <template inherit_id="website_sale.product" customize_show="True" name="Alternative Products">
+<!-- <data inherit_id="website_sale.product" customize_show="True" name="Alternative Products">
         <xpath expr="//div[@id='product_full_description']" position="after">
             <div class="container mt32" t-if="product.alternative_product_ids">
                 <h3>Alternative Products:</h3>
@@ -179,5 +184,5 @@
                 </div>
             </div>
         </xpath>
-    </template> -->
-
+    </data>
+ -->
