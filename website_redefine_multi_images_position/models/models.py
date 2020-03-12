@@ -41,3 +41,11 @@ class ResConfigSettings(models.TransientModel):
             'multi_image_tab_position_settings':'left'
         })
         res_config_setting_obj.execute()
+
+
+class Product(models.Model):
+    """docstring for ClassName"""
+
+    x_studio_product_size = fields.Char(string="Product Size")
+    x_studio_vidoe_link = fields.Char(string="Video Link")
+        
