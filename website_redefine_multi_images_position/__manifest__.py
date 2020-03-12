@@ -40,6 +40,7 @@ Images Tab in Left""",
   "depends"              :  ['base','web','website_sale'],
   "data"                 :  [
                              'views/templates.xml',
+                             'views/product.xml',
                              'views/res_config_settings_views.xml',
                             ],
   "demo"                 :  ['demo/demo_data.xml'],
