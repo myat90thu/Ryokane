@@ -157,7 +157,7 @@
                 <p><br/> <span t-field="product.x_studio_product_label" /></p>
                 <p><br/> <span t-field="product.x_studio_product_size" /></p>
             </xpath>
-            <xpath expr="//p[@t-field='product.description_sale']" position="after">
+            <xpath expr="//div[last()]" position="after">
                 <p><br /><i class="fa fa-youtube fa-2x" style="color:#b91616"></i> <span t-raw="product.x_studio_vidoe_link" /> </p>
             </xpath>
         </template>
