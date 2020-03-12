@@ -153,10 +153,9 @@
             </xpath>
         </template>
         <template id="add_x_studio_fields" inherit_id="website_sale.product">
-            <xpath expr="//a[@id='add_to_cart']" position="after">
-                <span t-field="product.x_studio_product_size" />
-                <span t-field="product.x_studio_vidoe_link" />
-      
+            <xpath expr="//a[@id='add_to_cart']" position="before">
+                <p t-field="product.id" />
+                <p t-field="product.id" />
             </xpath>
         </template>
     </data>
