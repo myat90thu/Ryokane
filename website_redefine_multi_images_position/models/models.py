@@ -19,7 +19,7 @@ class ResConfigSettings(models.TransientModel):
         ('top', 'Top'),
         ('bottom','Bottom')], string="Set Multi-Images Position",default='bottom')
 
-    @api.multi
+    # @api.multi
     def set_values(self):
         super(ResConfigSettings, self).set_values()
         value = self.multi_image_tab_position_settings or 'bottom'
@@ -41,3 +41,14 @@ class ResConfigSettings(models.TransientModel):
             'multi_image_tab_position_settings':'left'
         })
         res_config_setting_obj.execute()
+
+
+class Product(models.Model):
+    """docstring for Product"""
+    _inherit = "product.template"
+
+    x_studio_product_size = fields.Char(string="Product Size")
+    x_studio_vidoe_link = fields.Html(string="Video Link")
+    x_studio_product_label = fields.Char(string="Product Label")
+
+        
