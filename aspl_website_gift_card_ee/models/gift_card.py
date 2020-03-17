@@ -16,24 +16,25 @@ from base64 import b64encode, b64decode
 
 
 class WebsiteGiftCard(models.Model):
-    _name = "website.gift.card"
+    # _name = "website.gift.card"
+    _inherit = 'aspl.gift.card'
     _rec_name = "card_no"
 
     def random_cardno(self):
         return int(time.time())
 
-    card_no = fields.Char(string="Card No", default=random_cardno, readonly=True)
-    card_value = fields.Float(string="Card Value")
-    customer_id = fields.Many2one('res.partner', string="Customer")
-    issue_date = fields.Date(string="Issue Date", default=datetime.datetime.now().date())
-    expire_date = fields.Date(string="Expire Date")
-    pin_no = fields.Integer(string="Pin No.")
-    is_active = fields.Boolean('Active', default=True)
-    used_line = fields.One2many('gift.card.use', 'card_id', string="Used Line", oncascade='delete')
-    recharge_line = fields.One2many('gift.card.recharge', 'card_id', string="Recharge Line", oncascade='delete')
+    # card_no = fields.Char(string="Card No", default=random_cardno, readonly=True)
+    # card_value = fields.Float(string="Card Value")
+    # customer_id = fields.Many2one('res.partner', string="Customer")
+    # issue_date = fields.Date(string="Issue Date", default=datetime.datetime.now().date())
+    # expire_date = fields.Date(string="Expire Date")
+    # pin_no = fields.Integer(string="Pin No.")
+    # is_active = fields.Boolean('Active', default=True)
+    # used_line = fields.One2many('gift.card.use', 'card_id', string="Used Line", oncascade='delete')
+    # recharge_line = fields.One2many('gift.card.recharge', 'card_id', string="Recharge Line", oncascade='delete')
     encrypted_id = fields.Char(string='Encrypted Id')
-    email = fields.Char(string="Email")
-    user_name = fields.Char(string="User Name")
+    # email = fields.Char(string="Email")
+    # user_name = fields.Char(string="User Name")
 
     @api.model
     def create(self, vals):
@@ -53,19 +54,12 @@ class WebsiteGiftCard(models.Model):
 
 
 class GiftCardUse(models.Model):
-    _name = 'gift.card.use'
-
-    card_id = fields.Many2one('website.gift.card', string="Card", readonly=True)
+    _inherit = 'aspl.gift.card.use'
     order_id = fields.Many2one("sale.order", string="Order")
-    order_date = fields.Date(string="Order Date")
-    amount = fields.Float(string="Amount")
 
 
 class GiftCardRecharge(models.Model):
-    _name = 'gift.card.recharge'
-
-    card_id = fields.Many2one('website.gift.card', string="Card", readonly=True)
-    amount = fields.Float(string="amount")
+    _inherit = 'aspl.gift.card.recharge'
 
     @api.model
     def create(self, vals):
@@ -89,8 +83,8 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     gift_card_value = fields.Float(string="Gift Card Amount")
-    gift_card_id = fields.Many2one('website.gift.card', string="Gift Card")
-    gift_card_use_ids = fields.One2many('gift.card.use', 'order_id', string="Gift Card Use")
+    gift_card_id = fields.Many2one('aspl.gift.card', string="Gift Card")
+    gift_card_use_ids = fields.One2many('aspl.gift.card.use', 'order_id', string="Gift Card Use")
     receiver_email = fields.Char(string="Receiver Email")
     receiver_name = fields.Char(string="Receiver Name")
 
@@ -105,7 +99,7 @@ class SaleOrder(models.Model):
                         qty = sale_order_line_id.product_uom_qty
                         gift_card_value = sale_order_line_id.price_subtotal / qty
                         while qty > 0:
-                            gift_card_obj = self.env['website.gift.card']
+                            gift_card_obj = self.env['aspl.gift.card']
                             gift_card_obj.create({
                                 'card_value': gift_card_value,
                                 'customer_id': self.env.user.partner_id.id,
@@ -115,7 +109,7 @@ class SaleOrder(models.Model):
                             qty -= 1
                             time.sleep(2)
                     if so.gift_card_id:
-                        gift_card_obj = self.env['website.gift.card'].search([('id', '=', so.gift_card_id.id)])
+                        gift_card_obj = self.env['aspl.gift.card'].search([('id', '=', so.gift_card_id.id)])
                         if gift_card_obj:
                             gift_card_obj.write({
                                 'card_value': gift_card_obj.card_value + sale_order_line_id.price_subtotal,

@@ -19,9 +19,9 @@
     'website': "http://www.acespritech.com",
     'price': 35,
     'currency': 'EUR',
-    'depends' : ['base', 'website_sale', 'sale', 'website'],
+    'depends' : ['base', 'website_sale', 'sale', 'website', 'aspl_gift_card'],
     'data' : [
-        'security/ir.model.access.csv',
+        # 'security/ir.model.access.csv',
         'views/gift_card.xml',
         'views/gift_card_mail_template.xml',
         'views/gift_card_backend_view.xml',

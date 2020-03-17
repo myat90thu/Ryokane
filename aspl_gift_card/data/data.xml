@@ -107,6 +107,7 @@
 			<field name="type">service</field>
 			<field name="sale_ok">True</field>
 			<field name="taxes_id"/>
+            <field name="is_gift_card" eval="True"/>
 			<field name="supplier_taxes_id" />
 		</record>
 		<record id="aspl_gift_card_product_type_gold" model="aspl.gift.card.type">
@@ -127,6 +128,7 @@
             <field name="type">service</field>
             <field name="sale_ok">True</field>
             <field name="taxes_id"/>
+            <field name="is_gift_card" eval="True"/>
             <field name="supplier_taxes_id" />
         </record>
 

@@ -1,8 +1,7 @@
 <odoo>
-    <data>
         <record id="gift_Card_form_view" model="ir.ui.view">
             <field name="name">Gift Card</field>
-            <field name="model">website.gift.card</field>
+            <field name="model">aspl.gift.card</field>
             <field name="arch" type="xml">
                 <form create="0" edit="0">
                     <sheet>
@@ -38,7 +37,7 @@
         </record>
         <record id="gift_Card_tree_view" model="ir.ui.view">
             <field name="name">Gift Card</field>
-            <field name="model">website.gift.card</field>
+            <field name="model">aspl.gift.card</field>
             <field name="arch" type="xml">
                 <tree create="0">
                     <field name="card_no"/>
@@ -50,7 +49,7 @@
         </record>
         <record id="gift_card_action" model="ir.actions.act_window">
             <field name="name">Gift Card</field>
-            <field name="res_model">website.gift.card</field>
+            <field name="res_model">aspl.gift.card</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
@@ -70,15 +69,14 @@
         <record id="gift_card_value_action" model="ir.actions.act_window">
             <field name="name">Gift Card Value</field>
             <field name="res_model">gift.card.value</field>
-            <field name="view_type">form</field>
+            <field name="view_type">tree</field>
             <field name="view_mode">tree,form</field>
         </record>
 
         <menuitem name="Gift Card" id="gift_card_view" parent="website.menu_website_configuration" sequence="2"/>
-        <menuitem action="gift_card_action" id="gift_card_view_child" parent="gift_card_view"/>
-        <menuitem action="gift_card_value_action" id="gift_card_value_view_child" parent="gift_card_view"/>
-    </data>
-    <data>
+        <menuitem action="gift_card_action" id="gift_card_view_child" parent="gift_card_view" sequence="1"/>
+        <menuitem action="gift_card_value_action" id="gift_card_value_view_child" parent="gift_card_view" sequence="2"/>
+
         <record id="inherit_view_sale_order" model="ir.ui.view">
             <field name="name">sale.order.form</field>
             <field name="model">sale.order</field>
@@ -100,5 +98,4 @@
                 </xpath>
             </field>
         </record>
-    </data>
 </odoo>

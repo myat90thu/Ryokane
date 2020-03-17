@@ -53,7 +53,7 @@ class WebsiteSale(WebsiteSale):
     def check_gift_card_details(self, card_number=False, pin=False, **kw):
         error_msg = "Please Provide Card Number and PIN"
         if card_number and pin:
-            gift_card_id = request.env['website.gift.card'].search([('card_no', '=', int(card_number)),
+            gift_card_id = request.env['aspl.gift.card'].search([('card_no', '=', int(card_number)),
                                                                     ('pin_no', '=', int(pin))])
             if not gift_card_id:
                 error_msg = "Invalid Card Number or PIN"
@@ -71,7 +71,7 @@ class WebsiteSale(WebsiteSale):
         value = value.replace(' ', '+')
         cipher = b64decode(value)
         clear_val = decrypt(MASTER_KEY, cipher)
-        gift_card_id = request.env['website.gift.card'].search([('id', '=', int(clear_val))])
+        gift_card_id = request.env['aspl.gift.card'].search([('id', '=', int(clear_val))])
         value = {
             'gift_card_id': gift_card_id
         }
@@ -79,7 +79,7 @@ class WebsiteSale(WebsiteSale):
 
     @http.route(['/shop/set/pin'], type='json', auth="public", website=True)
     def gift_card_pin(self, card_id=0, pin=0, **kw):
-        gift_card_id = request.env['website.gift.card'].search([('id', '=', int(card_id))])
+        gift_card_id = request.env['aspl.gift.card'].search([('id', '=', int(card_id))])
         gift_card_id.write({
             'pin_no': int(pin)
         })
@@ -88,7 +88,7 @@ class WebsiteSale(WebsiteSale):
 
     @http.route(['/set/pin'], type='http', auth="public", website=True)
     def gift_set_pin(self, card_id=0, pin=0, **kw):
-        gift_card_id = request.env['website.gift.card'].search([('id', '=', int(kw.get('id')))])
+        gift_card_id = request.env['aspl.gift.card'].search([('id', '=', int(kw.get('id')))])
         gift_card_id.write({
             'pin_no': int(pin)
         })
@@ -97,7 +97,7 @@ class WebsiteSale(WebsiteSale):
 
     @http.route(['/card_details'], type='json', auth="public", csrf=False, method=['post'], website=True)
     def gift_card_details(self, id=0, card_number=0, pin=0, **kw):
-        gift_card_id = request.env['website.gift.card'].search([('card_no', '=', int(card_number)),
+        gift_card_id = request.env['aspl.gift.card'].search([('card_no', '=', int(card_number)),
                                                                 ('pin_no', '=', int(pin))])
         if gift_card_id:
             usage_history_list = []
@@ -136,7 +136,7 @@ class WebsiteSale(WebsiteSale):
 
     @http.route(['/apply_gift_card'], type='json', auth="public", csrf=False, method=['post'], website=True)
     def apply_gift_card(self, id=0, amount=0, **kw):
-        gift_card_id = request.env['website.gift.card'].search([('id', '=', int(id))])
+        gift_card_id = request.env['aspl.gift.card'].search([('id', '=', int(id))])
         gift_card_session_id = request.session.get('gift_card_id')
         amount = float(amount)
         if gift_card_id.card_value >= amount:
@@ -194,7 +194,7 @@ class WebsiteSale(WebsiteSale):
         gift_card_id = int(card_id)
         sale_order_id = request.session.get('sale_last_order_id')
         sale_order = request.env['sale.order'].search([('id', '=', sale_order_id)])
-        gift_card = request.env['website.gift.card'].search([('id', '=', gift_card_id)])
+        gift_card = request.env['aspl.gift.card'].search([('id', '=', gift_card_id)])
         gift_card_use_id = request.env['gift.card.use'].search([('card_id', '=', gift_card_id),
                                                                 ('amount', '=', float(amount))], limit=1)
         gift_card.write({
