@@ -16,9 +16,9 @@
             </div>
         </t>
     </t>
-    <t t-name="Pratitioner">
+    <t t-name="Practitioner">
         <div class='control-button'>
-            <i class='fa fa-user' /> Pratitioner
+            <i class='fa fa-user' /> Practitioner
         </div>
     </t>
     <t t-name="ReservationSource">

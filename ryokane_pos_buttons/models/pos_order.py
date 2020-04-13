@@ -7,10 +7,13 @@ class PosOrder(models.Model):
     @api.model
     def _order_fields(self, ui_order):
         res = super(PosOrder, self)._order_fields(ui_order)
-        res.update(reservation=ui_order.get("reservation"), pratitioner=ui_order.get("pratitioner"))
+        res.update(reservation=ui_order.get("reservation"), practitioner=ui_order.get("practitioner"))
         return res
 
-    pratitioner = fields.Many2one(comodel_name="hr.employee", string="Pratitioner")
-    reservation = fields.Selection(
-        selection=[("walk_in", "Walk In"), ("phone", "Phone"), ("internet", "Internet")], string="Reservation"
-    )
+    practitioner = fields.Many2one(comodel_name="hr.employee", string="Practitioner")
+    reservation = fields.Many2one('reservation', string="Reservation")
+
+class reservation(models.Model):
+    _name = 'reservation'
+
+    name = fields.Char(string="Reservation")

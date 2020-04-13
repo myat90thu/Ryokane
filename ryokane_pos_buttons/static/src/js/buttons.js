@@ -24,10 +24,22 @@ odoo.define('ryokane_pos_buttons.buttons', function(require) {
         }
     });
 
+    models.load_models({
+        model: 'reservation',
+        fields: ['name'],
+        domain: [
+
+        ],
+        loaded: function(self, reservation) {
+            self.reservation = reservation
+        }
+     });
+
+
     models.Order = models.Order.extend({
         initialize: function(sessions, attributes) {
 
-            this.pratitioner = false;
+            this.practitioner = false;
             this.reservation = false;
 
 
@@ -37,7 +49,7 @@ odoo.define('ryokane_pos_buttons.buttons', function(require) {
         export_as_JSON: function() {
             var orders = SuperOrder.export_as_JSON.call(this);
             var vals = {
-                'pratitioner': this.pratitioner,
+                'practitioner': this.practitioner,
                 'reservation': this.reservation,
             };
             $.extend(orders, vals);
@@ -51,8 +63,8 @@ odoo.define('ryokane_pos_buttons.buttons', function(require) {
 
 
 
-    var Pratitioner = screens.ActionButtonWidget.extend({
-        template: 'Pratitioner',
+    var Practitioner = screens.ActionButtonWidget.extend({
+        template: 'Practitioner',
         button_click: function() {
             var self = this;
             var employees_list = []
@@ -62,32 +74,33 @@ odoo.define('ryokane_pos_buttons.buttons', function(require) {
 
 
             self.gui.show_popup('selection', {
-                title: _t('Select Pratitioner'),
+                title: _t('Select Practitioner'),
                 list: employees_list,
-                confirm: function(pratitioner) {
+                confirm: function(practitioner) {
                     var order = self.pos.get_order();
-                    order.pratitioner = pratitioner;
-                    models.pratitioner = pratitioner;
+                    order.practitioner = practitioner;
+                    models.practitioner = practitioner;
                 },
-                is_selected: function(pratitioner) {
-                    return pratitioner === self.pos.get_order().pratitioner;
+                is_selected: function(practitioner) {
+                    return practitioner === self.pos.get_order().practitioner;
                 }
             });
         },
     });
 
-    var ReservationSource = screens.ActionButtonWidget.extend({
+    var Reservation = screens.ActionButtonWidget.extend({
         template: 'ReservationSource',
         button_click: function() {
             var self = this;
+            var reservation_list =[]
+            _.each(self.pos.reservation, function(e) {
+                 reservation_list.push({ 'label': e.name, 'item': e.id})
+            });
+
 
             self.gui.show_popup('selection', {
-                title: _t('Select Reservation Source'),
-                list: [
-                    { "label": "Walk In", "item": "walk_in" },
-                    { "label": "Phone", "item": "phone" },
-                    { "label": "Internet", "item": "internet" }
-                ],
+                title: _t('Select Reservation'),
+                list: reservation_list,
                 confirm: function(reservation) {
                     var order = self.pos.get_order();
                     order.reservation = reservation;
@@ -101,13 +114,13 @@ odoo.define('ryokane_pos_buttons.buttons', function(require) {
     });
 
     screens.define_action_button({
-        'name': 'pratitioner',
-        'widget': Pratitioner,
+        'name': 'practitioner',
+        'widget': Practitioner,
     });
 
     screens.define_action_button({
         'name': 'reservation',
-        'widget': ReservationSource,
+        'widget': Reservation,
 
     });
 

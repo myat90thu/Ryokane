@@ -83,6 +83,12 @@ class StockPickingDelivery(models.Model):
             res.update({
                 'analytic_tag_ids': res.purchase_line_id.analytic_tag_ids.ids
             })
+
+        if not (res.purchase_line_id or res.sale_line_id or res.inventory_id or res.production_id or res.raw_material_production_id):
+            config = self.env['pos.config'].search([])
+            res.update({
+                'analytic_tag_ids': config.analytic_tag_ids.ids
+            })
         return res
 
 

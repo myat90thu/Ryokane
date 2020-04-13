@@ -4,13 +4,6 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
 
-# Add analytic tags in sale order lines from sale order form view
-
-
-# class AccountMove(models.Model):
-#     _inherit = 'account.move'
-
-
 class OrderLine(models.Model):
     _inherit = 'sale.order'
 
@@ -22,6 +15,7 @@ class OrderLine(models.Model):
             order.update({
                 'analytic_tag_ids': [(6, 0, self.analytic_tag_ids.ids)]
             })
+
 
 
 # Add analytic account in invoice lines from invoice form view

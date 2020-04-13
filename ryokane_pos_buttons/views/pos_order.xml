@@ -7,7 +7,7 @@
             <field name="model">pos.order</field>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
-                    <field name="pratitioner" />
+                    <field name="practitioner" />
                     <field name="reservation" />
                 </xpath>
             </field>
@@ -18,7 +18,7 @@
             <field name="model">pos.order</field>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
-                    <field name="pratitioner" />
+                    <field name="practitioner" />
                     <field name="reservation" />
                 </xpath>
             </field>
