@@ -7,4 +7,5 @@ from . import manufacturing_tags
 from . import stock_landed_cost
 from . import account_invoice
 from . import pos
+from . import account_asset
 
