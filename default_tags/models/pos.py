@@ -9,14 +9,7 @@ class POSConfig(models.Model):
 
     analytic_tag_ids = fields.Many2many('account.analytic.tag', string='Analytic Tags')
 
-
-class POSOrderLine(models.Model):
-    _inherit = 'pos.order.line'
-
-    analytic_tag_ids = fields.Many2many('account.analytic.tag', related="order_id.session_id.config_id.analytic_tag_ids", string='Analytic Tags')
-
-
-# class AccountBankStatement(models.Model):
+#class AccountBankStatement(models.Model):
 #     _inherit = 'account.bank.statement'
 #
 #     analytic_tag_ids = fields.Many2many('account.analytic.tag', related="order_id.session_id.config_id.analytic_tag_ids", string='Analytic Tags')
@@ -26,29 +19,41 @@ class POSOrderLine(models.Model):
 #     _inherit = 'account.bank.statement.line'
 #
 #     analytic_tag_ids = fields.Many2many('account.analytic.tag', related="statement_id.analytic_tag_ids", string='Analytic Tags')
-#
+
+class POSOrderLine(models.Model):
+    _inherit = 'pos.order.line'
+
+    analytic_tag_ids = fields.Many2many('account.analytic.tag', string='Analytic Tags')
+
+
+    @api.model
+    def create(self, vals):
+        res = super(POSOrderLine, self).create(vals)
+        config = self.env['pos.config'].search([])
+        res.update({
+            'analytic_tag_ids': [(6, 0, config.analytic_tag_ids.ids)]
+        })
+        return res
+
 
 class POSOrder(models.Model):
     _inherit = 'pos.order'
 
-    analytic_tag_ids = fields.Many2many('account.analytic.tag', related="session_id.config_id.analytic_tag_ids", string='Analytic Tags')
+    analytic_tag_ids = fields.Many2many('account.analytic.tag', string='Analytic Tags')
 
-    @api.onchange('analytic_tag_ids')
-    def onchange_tag(self):
+
+    @api.model
+    def create(self, vals):
+        res = super(POSOrder, self).create(vals)
         config = self.env['pos.config'].search([])
-        self.update({
-                'analytic_tag_ids': [(6, 0, config.analytic_tag_ids.ids)]
-            })
+        res.update({
+            'analytic_tag_ids': [(6, 0, config.analytic_tag_ids.ids)]
+        })
+        return res
 
-    @api.onchange('lines')
-    def _onchange_pos_order_line(self):
-        if self.analytic_tag_ids:
-            self.lines.update({
-                'analytic_tag_ids': [(6, 0, self.analytic_tag_ids.ids)]
-            })
 
     def _action_create_invoice_line(self, line=False, invoice_id=False):
-        res = super(POSOrder, self)._action_create_invoice_line(line,invoice_id)
+        res = super(POSOrder, self)._action_create_invoice_line(line, invoice_id)
         if not res['analytic_tag_ids']:
             res.update({
                 'analytic_tag_ids': [(6, 0, self.analytic_tag_ids.ids)]
@@ -58,7 +63,7 @@ class POSOrder(models.Model):
     @api.multi
     def action_pos_order_invoice(self):
         res = super(POSOrder, self).action_pos_order_invoice()
-        invoice = self.env['account.invoice'].search([('id','=', res['res_id'])])
+        invoice = self.env['account.invoice'].search([('id', '=', res['res_id'])])
         if not invoice.analytic_tag_id:
             invoice.update({
                 'analytic_tag_id': [(6, 0, self.analytic_tag_ids.ids)]
@@ -85,7 +90,9 @@ class PosSession(models.Model):
                 if abs(st.difference) > st.journal_id.amount_authorized_diff:
                     # The pos manager can close statements with maximums.
                     if not self.user_has_groups("point_of_sale.group_pos_manager"):
-                        raise UserError(_("Your ending balance is too different from the theoretical cash closing (%.2f), the maximum allowed is: %.2f. You can contact your manager to force it.") % (st.difference, st.journal_id.amount_authorized_diff))
+                        raise UserError(_(
+                            "Your ending balance is too different from the theoretical cash closing (%.2f), the maximum allowed is: %.2f. You can contact your manager to force it.") % (
+                                            st.difference, st.journal_id.amount_authorized_diff))
                 if (st.journal_id.type not in ['bank', 'cash']):
                     raise UserError(_("The journal type for your payment method should be bank or cash."))
                 st.with_context(ctx_notrack).sudo().button_confirm_bank()
@@ -95,7 +102,6 @@ class PosSession(models.Model):
                         'analytic_tag_ids': session.config_id.analytic_tag_ids
                     })
                     dimension_tags_allowed = []
-
                     tag_ids = move_line.analytic_tag_ids.ids
                     for dimension in move_line.account_id.analytic_dimension_ids:
                         dimension_tags = dimension.analytic_dimension_id.analytic_tag_ids.ids
@@ -119,8 +125,58 @@ class PosSession(models.Model):
                     })
                     if not move_line.analytic_tag_ids and move_line.display_type != 'line_section':
                         raise ValidationError(_("Please choose a valid Tag/Dimension!!!"))
+        orders = self.env['pos.order'].search([('session_id', '=', self.id)])
+        for order in orders:
+            for line in order.lines:
+                if line.product_id.type == "service":
+                    card_use = self.env['aspl.gift.card.use'].search([('pos_order_id', '=', order.id)])
+                    if card_use:
+                        allowed_tag_val = []
+                        for tag in line.analytic_tag_ids:
+                            if tag.analytic_dimension_id.id == card_use.card_id.card_type.card_type_analytic_tags.analytic_dimension_id.id:
+                                allowed_tag_val.append(card_use.card_id.card_type.card_type_analytic_tags.id)
+                            else:
+                                allowed_tag_val.append(tag.id)
+                    else:
+                        allowed_tag_val = []
+                        for tag in line.analytic_tag_ids:
+                            if tag.analytic_dimension_id.id == order.reservation.reservation_analytic_tags.analytic_dimension_id.id:
+                                allowed_tag_val.append(order.reservation.reservation_analytic_tags.id)
+                            else:
+                                allowed_tag_val.append(tag.id)
+                    line.update({
+                        'analytic_tag_ids': [(6, 0, allowed_tag_val)]
+                    })
+
+            for invoice in order.invoice_id:
+                for line in invoice.invoice_line_ids:
+                    if line.product_id.type == "service":
+                        card_use = self.env['aspl.gift.card.use'].search([('pos_order_id', '=', order.id)])
+                        if card_use:
+                            allowed_tag_val = []
+                            for tag in line.analytic_tag_ids:
+                                if tag.analytic_dimension_id.id == card_use.card_id.card_type.card_type_analytic_tags.analytic_dimension_id.id:
+                                    allowed_tag_val.append(card_use.card_id.card_type.card_type_analytic_tags.id)
+                                else:
+                                    allowed_tag_val.append(tag.id)
+                        else:
+                            allowed_tag_val = []
+                            for tag in line.analytic_tag_ids:
+                                if tag.analytic_dimension_id.id == order.reservation.reservation_analytic_tags.analytic_dimension_id.id:
+                                    allowed_tag_val.append(order.reservation.reservation_analytic_tags.id)
+                                else:
+                                    allowed_tag_val.append(tag.id)
+                        line.update({
+                            'analytic_tag_ids': [(6, 0, allowed_tag_val)]
+                        })
+                for moveline in invoice.move_id.line_ids:
+                    for invoiceline in invoice.invoice_line_ids:
+                        if invoiceline.account_id.id == moveline.account_id.id and invoiceline.product_id.display_name == moveline.name :
+                            moveline.update({'analytic_tag_ids': [(6, 0, invoiceline.analytic_tag_ids.ids)]})
+
         self.with_context(ctx)._confirm_orders()
         self.write({'state': 'closed'})
+
         return {
             'type': 'ir.actions.client',
             'name': 'Point of Sale Menu',

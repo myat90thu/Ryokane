@@ -35,7 +35,7 @@
 							<group colspan="2" col="2" string="Categories">
 								<button type="object" class="btn btn-primary"
 									name="add_all_category" string="Add All Categories" colspan="1" />
-								<field name="visible_category_ids" colspan="2" nolabel="1" />
+								<field name="visible_audience_ids" colspan="2" nolabel="1" />
 							</group>
 						</group>
 					</page>

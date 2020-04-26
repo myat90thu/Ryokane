@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_public_product_visibility,public.product.visibility,website_product_visibility_odoo.model_public_product,,1,1,0,0
+access_product_website_audience,product_website_audience,website_product_visibility_odoo.model_product_website_audience,,1,1,1,1

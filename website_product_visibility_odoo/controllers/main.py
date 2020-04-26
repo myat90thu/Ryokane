@@ -55,8 +55,8 @@ class website_sale_product(WebsiteSale):
 #         if request.env.user.partner_id.visible_product_ids:
 #             for visible_product in request.env.user.partner_id.visible_product_ids:
 #                 visible_product_ids.append(visible_product.id)
-#         if request.env.user.partner_id.visible_category_ids:
-#             for categ in request.env.user.partner_id.visible_category_ids:
+#         if request.env.user.partner_id.visible_audience_ids:
+#             for categ in request.env.user.partner_id.visible_audience_ids:
 #                 products = request.env['product.template'].sudo().search([('categ_id', '=', categ.id)])
 #                 for product in products:
 #                     visible_product_ids.append(product.id)
@@ -71,14 +71,17 @@ class website_sale_product(WebsiteSale):
             public_prod_categ = request.env['ir.config_parameter'].sudo().get_param('website_product_visibility_odoo.visible_public_prod_categ_too')
             if request.env.user.partner_id.visible_product_ids:
                 visible_product_ids += request.env.user.partner_id.visible_product_ids.ids
-            if request.env.user.partner_id.visible_category_ids:
-                visible_product_ids += request.env['product.template'].sudo().search([('categ_id', 'in', request.env.user.partner_id.visible_category_ids.ids)]).ids
+            if request.env.user.partner_id.visible_audience_ids:
+                visible_product_ids += request.env['product.template'].sudo().search([('audience_id', 'in', request.env.user.partner_id.visible_audience_ids.ids)]).ids
             if public_prod_categ:
                 public_partner = request.env.ref('base.public_partner')
                 if public_partner.sudo().visible_product_ids:
                     visible_product_ids += public_partner.sudo().visible_product_ids.ids
+                if public_partner.sudo().visible_audience_ids:
+                    visible_product_ids += request.env['product.template'].sudo().search(
+                        [('audience_id', 'in', public_partner.sudo().visible_audience_ids.ids)]).ids
+
             visible_product_ids = list(set(visible_product_ids))
-            
             domain += [('id', 'in', visible_product_ids)]
         ##############
         url = "/shop"

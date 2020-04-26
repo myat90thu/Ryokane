@@ -126,6 +126,8 @@ class aspl_gift_card_type(models.Model):
 
     name = fields.Char(string="Name")
     code = fields.Char(string=" Code")
+    card_type_analytic_tags = fields.Many2one('account.analytic.tag', string='Analytic Tags')
+
 
 
 class ResPartner(models.Model):

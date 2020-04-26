@@ -13,7 +13,9 @@ class PosOrder(models.Model):
     practitioner = fields.Many2one(comodel_name="hr.employee", string="Practitioner")
     reservation = fields.Many2one('reservation', string="Reservation")
 
-class reservation(models.Model):
+
+class Reservation(models.Model):
     _name = 'reservation'
 
     name = fields.Char(string="Reservation")
+    reservation_analytic_tags = fields.Many2one('account.analytic.tag', string='Analytic Tags')

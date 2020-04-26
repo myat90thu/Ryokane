@@ -5,7 +5,7 @@ from odoo import api, fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
     
-    visible_public_prod_categ_too = fields.Boolean("Visible Public Product And Categroy Too", help="On Webshop Visible Registered User Product Plus All Public Product")
+    visible_public_prod_categ_too = fields.Boolean("Visible Public Product And Audience Too", help="On Webshop Visible Registered User Product Plus All Public Product")
     
     @api.multi
     def set_values(self):
