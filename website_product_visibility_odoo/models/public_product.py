@@ -8,7 +8,7 @@ class public_product(models.Model):
 
     test = fields.Boolean("TEST")
     public_visible_product_ids = fields.Many2many('product.template', 'public_product_rel', 'public_id', 'product_id', string='Products')
-    public_visible_category_ids = fields.Many2many('product.category', 'public_categ_rel', 'public_id', 'categ_id', string="Product Category")
+    public_visible_audience_ids = fields.Many2many('product.website.audience', 'public_audi_rel', 'public_id', 'audi_id', string="Product Audience")
 
     @api.model
     def default_get(self, fields):
@@ -16,9 +16,9 @@ class public_product(models.Model):
         public_product_id = self.search([], limit=1, order="id desc")
         if public_product_id:
             public_visible_product_ids = [visible_prod.id for visible_prod in public_product_id.public_visible_product_ids]
-            public_visible_category_ids = [visible_categ.id for visible_categ in public_product_id.public_visible_category_ids]
+            public_visible_audience_ids = [visible_audi.id for visible_audi in public_product_id.public_visible_audience_ids]
             result.update({'public_visible_product_ids': [(6, 0, public_visible_product_ids)]})
-            result.update({'public_visible_category_ids': [(6, 0, public_visible_category_ids)]})
+            result.update({'public_visible_audience_ids': [(6, 0, public_visible_audience_ids)]})
         return result
 
     @api.multi
@@ -30,9 +30,9 @@ class public_product(models.Model):
 
     @api.multi
     def add_all_category(self):
-        public_visible_category_ids = [categ.id for categ in self.env['product.category'].search([])]
-        if public_visible_category_ids:
-            self.public_visible_category_ids = public_visible_category_ids
+        public_visible_audience_ids = [audi.id for audi in self.env['product.website.audience'].search([])]
+        if public_visible_audience_ids:
+            self.public_visible_audience_ids = public_visible_audience_ids
         return True
 
     @api.multi
@@ -41,7 +41,7 @@ class public_product(models.Model):
         partner = self.env.ref('base.public_partner')
         partner_vals = {
             'visible_product_ids': self.public_visible_product_ids,
-            'visible_category_ids': self.public_visible_category_ids
+            'visible_audience_ids': self.public_visible_audience_ids
         }
         partner.update(partner_vals)
         return res

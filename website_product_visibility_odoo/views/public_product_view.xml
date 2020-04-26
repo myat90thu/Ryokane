@@ -22,10 +22,10 @@
                                     </tree>
                                 </field>
                             </group>
-                            <group colspan="2" col="2" string="Visible Category">
+                            <group colspan="2" col="2" string="Visible Website Audience">
                                 <button type="object" class="btn btn-primary" name="add_all_category"
-                                        string="Add All Categories" icon="fa-plus-circle" colspan="1"/>
-                                <field name="public_visible_category_ids" colspan="2" nolabel="1"/>
+                                        string="Add All Audience" icon="fa-plus-circle" colspan="1"/>
+                                <field name="public_visible_audience_ids" colspan="2" nolabel="1"/>
                             </group>
                         </group>
                     </sheet>
@@ -39,7 +39,7 @@
             <field name="arch" type="xml">
                 <tree string="Public Products">
                     <field name="public_visible_product_ids"/>
-                    <field name="public_visible_category_ids"/>
+                    <field name="public_visible_audience_ids"/>
                 </tree>
             </field>
         </record>
