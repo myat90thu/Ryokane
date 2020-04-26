@@ -42,38 +42,6 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     @api.multi
-    def post(self, invoice=False):
-        res = super(AccountMove, self).post(invoice=invoice)
-
-        dimension_tags_allowed = []
-        for line in self.line_ids:
-            tag_ids = line.analytic_tag_ids.ids
-            dimension_tags_allowed = []
-            for dimension in line.account_id.analytic_dimension_ids:
-                dimension_tags = dimension.analytic_dimension_id.analytic_tag_ids.ids
-                dimension_tags_allowed += dimension_tags
-                occurance = False
-                for x in set(dimension_tags):
-                    if tag_ids.count(x) > 0:
-                        occurance = True
-                if occurance is False:
-                    if dimension.default_value:
-                        tag_ids.append(dimension.default_value.id)
-                    else:
-                        raise ValidationError(_("Please choose a valid Tag for dimension: %s  and account: %s") % (
-                        dimension.analytic_dimension_id.name, line.account_id.code))
-            allowed_tag_val = []
-            for tag in tag_ids:
-                if tag in dimension_tags_allowed:
-                    allowed_tag_val.append(tag)
-            line.update({
-                'analytic_tag_ids': [(6, 0, allowed_tag_val)]
-            })
-            if not line.analytic_tag_ids:
-                raise ValidationError(_("Please choose a valid Tag/Dimension!!!"))
-        return res
-
-    @api.multi
     def action_post(self):
         res = super(AccountMove, self).action_post()
 

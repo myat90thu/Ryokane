@@ -9,16 +9,6 @@ class POSConfig(models.Model):
 
     analytic_tag_ids = fields.Many2many('account.analytic.tag', string='Analytic Tags')
 
-#class AccountBankStatement(models.Model):
-#     _inherit = 'account.bank.statement'
-#
-#     analytic_tag_ids = fields.Many2many('account.analytic.tag', related="order_id.session_id.config_id.analytic_tag_ids", string='Analytic Tags')
-#
-#
-# class AccountBankStatementLine(models.Model):
-#     _inherit = 'account.bank.statement.line'
-#
-#     analytic_tag_ids = fields.Many2many('account.analytic.tag', related="statement_id.analytic_tag_ids", string='Analytic Tags')
 
 class POSOrderLine(models.Model):
     _inherit = 'pos.order.line'
@@ -40,7 +30,6 @@ class POSOrder(models.Model):
     _inherit = 'pos.order'
 
     analytic_tag_ids = fields.Many2many('account.analytic.tag', string='Analytic Tags')
-
 
     @api.model
     def create(self, vals):
