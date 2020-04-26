@@ -129,6 +129,7 @@
                 <tree editable="bottom">
                     <field name="name" />
                     <field name="code" />
+                    <field name="card_type_analytic_tags" />
                 </tree>
             </field>
         </record>
