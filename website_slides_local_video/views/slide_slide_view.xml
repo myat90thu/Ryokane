@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_slide_slide_form_inherits" model="ir.ui.view">
+            <field name="name">slide.slide.form.inherits</field>
+            <field name="model">slide.slide</field>
+            <field name="inherit_id" ref="website_slides.view_slide_slide_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='url']" position="replace">
+                    <field name="is_local_url"/>
+                    <field name="url" attrs="{'required': ['|',('image', '=', False),('is_local_url','=',False)],
+                                              'invisible': [('is_local_url','=',True)]}"/>
+                    <field name="local_url" attrs="{'required': [('is_local_url','=',True)], 'invisible': [('is_local_url','=',False)]}" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

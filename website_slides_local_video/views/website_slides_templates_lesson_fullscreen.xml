@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <template id="slide_detail_view_inherit" name="Slide Detailed View" inherit_id="website_slides.slide_detail_view">
+             <xpath expr="//div[hasclass('embed-responsive-4by3')]" position="after">
+                <div t-if="slide.slide_type == 'video' and slide.local_url" class="embed-responsive embed-responsive-16by9 embed-responsive-item mb8">
+                    <t t-raw="slide.embed_code"/>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

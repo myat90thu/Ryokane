@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_remove_local_video" model="ir.cron">
+        <field name="name">Remove Local Video</field>
+        <field name="interval_number">15</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_slide_slide"/>
+        <field name="code">model.remove_local_video()</field>
+        <field name="state">code</field>
+    </record>
+</odoo>
